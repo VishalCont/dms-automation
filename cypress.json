@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://dev.desidms.com",
+  "viewportWidth": 1400,
+  "integrationFolder": "src",
+  "viewportHeight": 700,
+  "supportFile": "src/support"
+}
