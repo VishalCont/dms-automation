@@ -1,8 +1,7 @@
 /// <reference types ="Cypress"/>
 import { API_URL, ENV } from "../../../utils/constants";
-import { getRandomNumber } from "../../../utils/random_number";
-var customerInfos = require(`../../data/customer_info.${ENV}.json`);
-var quotationDetails = require(`../../data/quotation_detail.json`);
+var customerInfos = require(`../../../data/customer_info.${ENV}.json`);
+var quotationDetails = require(`../../../data/quotation_detail.json`);
 describe("Sales Test cases", () => {
   it("Check the values of sales tax and Govt fees by changing the Vehicle sale Price ", () => {
     cy.login();
@@ -26,13 +25,53 @@ describe("Sales Test cases", () => {
     cy.get("[formcontrolname='last_name']")
       .invoke("val")
       .should("not.be.empty");
-    cy.get("[formcontrolname='work_phone']")
-      .invoke("val")
-      .should("not.be.empty");
+    // cy.get("[formcontrolname='work_phone']")
+    //   .invoke("val")
+    //   .should("not.be.empty");
+
+    cy.get("[formcontrolname='work_phone']").then((workPhoneField) => {
+      var valueOfWorkPhone = workPhoneField.val();
+      cy.get("[formcontrolname='home_phone']").then((homePhoneField) => {
+        var valueOfHomePhone = homePhoneField.val();
+        cy.get("[formcontrolname='mobile_phone']").then((mobilePhoneField) => {
+          var valueOfMobilePhone = mobilePhoneField.val();
+          if (
+            valueOfWorkPhone.trim().length === 12 ||
+            valueOfHomePhone.trim().length === 12 ||
+            valueOfMobilePhone.trim().length === 12
+          ) {
+            cy.log("Atleast one field has some value");
+          } else {
+            throw new Error("Invalid");
+          }
+          cy.log(`Work Phone \n ${valueOfWorkPhone}`);
+          cy.log(`Home Phone \n ${valueOfHomePhone}`);
+          cy.log(`Mobile Phone 
+          ${valueOfMobilePhone}`);
+        });
+      });
+    });
+    // cy.get("[formcontrolname='work_phone']").then((x) => {
+    //   valueOfWorkPhone = x.val();
+    // });
+
+    // var valueOfHomePhone;
+    // cy.get("[formcontrolname='home_phone']")
+    //   .invoke("val")
+    //   .then((x) => {
+    //     valueOfHomePhone = x.val();
+    //   });
+    // cy.log(valueOfHomePhone);
+    // cy.log(valueOfWorkPhone);
+    //cy.get("[formcontrolname='home_phone']")
+    // .invoke("val")
+    //.should("not.be.empty");
+
     //cy.get("[formcontrolname='home_phone']")
     // .invoke("val")
     //.should("not.be.empty");
     //TODO research how to check for atleast 1 field to be filled
+
     //cy.get("[formcontrolname='mobile_phone']")
     //.invoke("val")
     //.should("not.be.empty");
