@@ -6,7 +6,7 @@ describe("Customer Page", () => {
   it("New customer details ", () => {
     cy.login();
     var randomFirstName = faker.name.firstName();
-    var randomLastName = faker.name.firstName();
+    var randomLastName = faker.name.lastName();
     var randomMobilePhone = faker.phone.phoneNumber();
     var randomWorkPhone = faker.phone.phoneNumber();
     var randomHomePhone = faker.phone.phoneNumber();
