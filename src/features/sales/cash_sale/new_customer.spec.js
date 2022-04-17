@@ -21,7 +21,7 @@ describe("Customer Page", () => {
     //Enter Work phone
     cy.get("[formcontrolname='work_phone']").type(randomWorkPhone);
     //Enter Home Phone
-    cy.get("[formcontrolname='home_phone']").type(randomMobilePhone);
+    cy.get("[formcontrolname='home_phone']").type(randomHomePhone);
     //ENter mobile phone
     cy.get("[formcontrolname='mobile_phone']").type(randomMobilePhone);
     //Enter Zipcode
