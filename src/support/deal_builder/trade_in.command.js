@@ -17,7 +17,6 @@ Cypress.Commands.add(
     cy.log(yearLimit);
     cy.debug();
     cy.wait(3000);
-    cy.get("input[formcontrolname = 'year']").clear().type("1000");
     //cy.log(Cypress.$("input[formcontrolname = 'year']").val());
     cy.get("input[formcontrolname = 'year']").then((year) => {
       var vehicleYear = Number(year.val());
@@ -127,7 +126,6 @@ Cypress.Commands.add(
     cy.intercept(`${API_URL}/sales/sales_trade_in/*`).as("tradeInWait");
     cy.get("button").contains("SAVE & CONTINUE").click();
     cy.wait(5000);
-
     cy.get("body").then((body) => {
       if (body.find("div:contains(Stock Number Already Exists)").length === 0) {
         //evaluates as true
