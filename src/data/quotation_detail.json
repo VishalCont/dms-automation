@@ -6,5 +6,12 @@
     "otherCharges": "323.50",
     "totalOfGovernmentFees": "323.50",
     "downpayment": 10913.5
+  },
+  {
+    "vehicleSalePrice": 10000,
+    "salesPrice": "11143.50",
+    "salesTax": "625.00",
+    "otherCharges": "518.50",
+    "totalofGovernmentFees": "323.50"
   }
 ]
