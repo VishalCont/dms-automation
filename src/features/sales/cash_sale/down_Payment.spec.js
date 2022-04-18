@@ -57,6 +57,7 @@ describe("Sales Test cases", () => {
     cy.get("button").contains("SAVE & CONTINUE").click();
 
     ///Adding differed Down payment
+    cy.defferedDownPayment("", "");
     //cy.get("#dueDatePicker_0").type("04/18/2022");
 
     //cy.get(".row.d-flex.flex-row-reverse>a").click();

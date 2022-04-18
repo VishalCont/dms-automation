@@ -1,3 +1,4 @@
+import { defferedDownPayment } from "./deal_builder/differed_downpayment.command";
 import { ICustomer, lookupExitingCustomer } from "./deal_builder/lookup_existing_customer.command";
 import { login } from "./login.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
@@ -22,6 +23,7 @@ declare global {
        */
       login: (a?: string, b?: string) => void;
       lookupExitingCustomer: (customer: ICustomer) => void;
+      defferedDownPayment: (differedDate: Date, differedDownPaymentAmount: number) => void;
     }
   }
 }
@@ -29,3 +31,4 @@ declare global {
 // add commands to Cypress like "cy.foo()" and "cy.foo2()"
 Cypress.Commands.add("login", login);
 Cypress.Commands.add("lookupExitingCustomer", lookupExitingCustomer);
+Cypress.Commands.add("defferedDownPayment", defferedDownPayment);

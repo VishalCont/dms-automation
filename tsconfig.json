@@ -6,7 +6,8 @@
     "strict": true,
     "types": ["cypress", "node"],
     "noEmit": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "allowJs": true
   },
   "include": ["node_modules/cypress", "src/**/*.ts"]
 }

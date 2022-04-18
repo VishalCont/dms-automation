@@ -52,17 +52,14 @@ describe("Sales Test cases", () => {
     cy.get(".modal-body label")
       .contains("Amount ($)")
       .parent()
-      //.get("input")
-      .then((ele) => {
-        // Cypress.$(ele)
-        ele.find("input").val("100").trigger("keyup");
-      });
+      .find("input")
+      .type("100");
 
     //cy.get("input[formcontrolname='otherValue']").click();
     //cy.get(".row.d-flex.flex-row-reverse>a").click();
-    //cy.get("input[formcontrolname='deferred_downpayment_amount']")
-    // .invoke("val")
-    //.should("not.be.empty");
+    cy.get("input[formcontrolname='deferred_downpayment_amount']")
+      .invoke("val")
+      .should("not.be.empty");
     cy.get("button").contains("SAVE & CONTINUE").click();
   });
 });
