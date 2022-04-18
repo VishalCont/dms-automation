@@ -6,3 +6,5 @@ require("./deal_builder/dcc_gap_newVendor.command");
 require("./deal_builder/trade_in.command");
 require("./deal_builder/trade_fetch_vehicle.command");
 require("./deal_builder/select_vehicle.command");
+require("./deal_builder/finance_calculation_type.command");
+require("./deal_builder/payment_schedule.command");
