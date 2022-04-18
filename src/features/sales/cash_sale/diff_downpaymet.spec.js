@@ -40,27 +40,29 @@ describe("Sales Test cases", () => {
     );
 
     //called down payment command
-    cy.down_payment();
+    cy.downPayment("1000");
 
     //click on Details button
     cy.get("button").contains("Details").click();
 
     ///Adding differed Down payment
-    cy.get("#dueDatePicker_0").type("04/19/2022");
+
+    cy.get("#dueDatePicker_0").type("04/21/2022");
+
     cy.get(".modal-body label")
       .contains("Amount ($)")
       .parent()
       //.get("input")
       .then((ele) => {
         // Cypress.$(ele)
-        ele.find("input").val("100");
+        ele.find("input").val("100").trigger("keyup");
       });
-    //.type("100");
 
+    //cy.get("input[formcontrolname='otherValue']").click();
     //cy.get(".row.d-flex.flex-row-reverse>a").click();
-
-    cy.get("#dueDatePicker_1").type("04/20/2022");
-
-    //cy.get("button").contains("SAVE & CONTINUE").click();
+    //cy.get("input[formcontrolname='deferred_downpayment_amount']")
+    // .invoke("val")
+    //.should("not.be.empty");
+    cy.get("button").contains("SAVE & CONTINUE").click();
   });
 });
