@@ -7,3 +7,7 @@ require("./deal_builder/trade_in.command");
 require("./deal_builder/trade_fetch_vehicle.command");
 require("./deal_builder/select_vehicle.command");
 require("./deal_builder/down_payment.command");
+require("./deal_builder/finance_calculation_type.command");
+require("./deal_builder/payment_schedule.command");
+require("./deal_builder/service_contract_existingVendor.command");
+require("./deal_builder/service_contract_newVendor.command");
