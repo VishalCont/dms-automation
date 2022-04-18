@@ -1,10 +1,10 @@
 [
   {
     "vehicleSalePrice": 10000,
-    "salesTax": "625.00",
-    "salesPrice": 10625,
-    "otherCharges": "323.50",
-    "totalOfGovernmentFees": "323.50",
+    "salesTax": "187.50",
+    "salesPrice": 7476.0,
+    "otherCharges": "288.50",
+    "totalOfGovernmentFees": "288.50",
     "downpayment": 10913.5
   }
 ]
