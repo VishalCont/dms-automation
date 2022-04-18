@@ -17,29 +17,33 @@ Cypress.Commands.add(
     cy.log(yearLimit);
     cy.debug();
     cy.wait(3000);
-    cy.get("input[formcontrolname = 'year']").clear();
-    cy.log(Cypress.$("input[formcontrolname = 'year']").val());
+    cy.get("input[formcontrolname = 'year']").clear().type("1000");
+    //cy.log(Cypress.$("input[formcontrolname = 'year']").val());
     cy.get("input[formcontrolname = 'year']").then((year) => {
       var vehicleYear = Number(year.val());
       while (vehicleYear < yearLimit) {
+        cy.log("inside loop");
         cy.tradeFetch();
-        vehicleYear = Number(cy.get("input[formcontrolname = 'year']"));
+        //cy.log(cy.get("input[formcontrolname = 'year']").invoke("val"));
+        vehicleYear = cy.get("input[formcontrolname = 'year']").invoke("val");
+        cy.log(vehicleYear);
         // vehicleYear = Number(
         // Cypress.$("input[formcontrolname = 'year']").val()
         //  );
       }
-      if (Number(year.val()) >= yearLimit) {
-        cy.log(" User can allow this vehicle");
-      } else {
-        cy.log(
-          "Vehicle Manufactrure year is" +
-            year +
-            " so we cannot use this vehicle"
-        );
-        cy.tradeFetch();
 
-        //Add Forloop for this
-      }
+      //   if (Number(year.val()) >= yearLimit) {
+      //     cy.log(" User can allow this vehicle");
+      //   } else {
+      //     cy.log(
+      //       "Vehicle Manufactrure year is" +
+      //         year +
+      //         " so we cannot use this vehicle"
+      //     );
+      //     cy.tradeFetch();
+
+      //     //Add Forloop for this
+      //   }
     });
     //TOdo Assertion for make dropdown
     //TOdo Assertion for Vehicle type dropdown
