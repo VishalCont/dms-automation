@@ -1,7 +1,6 @@
 /// <reference types ="Cypress"/>
 import { API_URL, ENV } from "../../../utils/constants";
-//var faker = require("faker");
-var faker = require("faker");
+var faker = require("@faker-js/faker");
 describe("Customer Page", () => {
   it("New customer details ", () => {
     cy.login();
