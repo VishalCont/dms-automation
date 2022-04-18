@@ -13,7 +13,7 @@ Cypress.Commands.add("existingVendorForDCCAndGAP", (insuranceVendor, vendorName,
     if (insuranceVendor === "DCC" || insuranceVendor === "GAP") {
         cy.get("button").contains(" DCC/GAP ").should("be.visible").click();
         cy.get(`.modal-content input[formcontrolname='insuranceProtectionType'][value='${insuranceVendor}']`).check();
-        cy.wait(1000);
+        cy.wait(2000);
         cy.get("select[formcontrolname='vendor_id']").select(`${vendorName}`);
         //  .select(`${vendorName}`);
         cy.get("input[formcontrolname='dealer_cost']").type(`${dealerCost}`);
