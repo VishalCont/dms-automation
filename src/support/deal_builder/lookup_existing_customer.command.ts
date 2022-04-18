@@ -1,6 +1,10 @@
-/// <reference types="cypress"/>
-
-Cypress.Commands.add("lookupExitingCustomer", (customer) => {
+export interface ICustomer {
+  first_name: string;
+  last_name: string;
+  work_phone: string;
+  home_phone: string;
+}
+export const lookupExitingCustomer = (customer: ICustomer) => {
   if (customer == null) throw new Error("There is no Customer Details sent");
   cy.get("#collapsibleNavbar a[href='/sales']").click();
 
@@ -17,16 +21,12 @@ Cypress.Commands.add("lookupExitingCustomer", (customer) => {
   cy.get("[formcontrolname='last_name']").invoke("val").should("not.be.empty");
 
   cy.get("[formcontrolname='work_phone']").then((workPhoneField) => {
-    var valueOfWorkPhone = workPhoneField.val();
+    var valueOfWorkPhone = workPhoneField.val() as string;
     cy.get("[formcontrolname='home_phone']").then((homePhoneField) => {
-      var valueOfHomePhone = homePhoneField.val();
+      var valueOfHomePhone = homePhoneField.val() as string;
       cy.get("[formcontrolname='mobile_phone']").then((mobilePhoneField) => {
-        var valueOfMobilePhone = mobilePhoneField.val();
-        if (
-          valueOfWorkPhone.trim().length === 12 ||
-          valueOfHomePhone.trim().length === 12 ||
-          valueOfMobilePhone.trim().length === 12
-        ) {
+        var valueOfMobilePhone = mobilePhoneField.val() as string;
+        if (valueOfWorkPhone?.trim().length === 12 || valueOfHomePhone.trim().length === 12 || valueOfMobilePhone.trim().length === 12) {
           cy.log("At least one field has some value");
         } else {
           throw new Error("Invalid");
@@ -43,4 +43,4 @@ Cypress.Commands.add("lookupExitingCustomer", (customer) => {
   cy.get("[formcontrolname='zipcode']").invoke("val").should("not.be.empty");
   cy.get("[formcontrolname='county']").invoke("val").should("not.be.empty");
   // TODO Fill up rest fields
-});
+};

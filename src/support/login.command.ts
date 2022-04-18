@@ -1,10 +1,6 @@
-/// <reference types="cypress"/>
-
 const { LOGIN_API_URL } = require("../utils/constants");
 
-Cypress.Commands.add("login", (username, password) => {
-  cy.log(cy.config().baseurl);
-  // cy.intercept("https://dev.desidms.com/auth").as("AuthPage");
+export function login(username?: string, password?: string) {
   cy.visit("/auth").location("pathname").should("equal", "/auth");
   cy.intercept(LOGIN_API_URL).as("LoginWait");
   cy.get('input[name="username"]').type(username ?? "Dravid", { force: true });
@@ -15,4 +11,4 @@ Cypress.Commands.add("login", (username, password) => {
   cy.wait("@LoginWait");
   cy.wait(2000);
   cy.location("pathname").should("equal", "/dashboard");
-});
+}
