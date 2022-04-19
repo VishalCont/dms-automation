@@ -52,6 +52,7 @@ describe("Demo", () => {
   });
   it("Checking Sales Price,sales Tax, Other by adding tradein and downpayment", () => {
     cy.wait(10000);
+    cy.removeTradeIn();
     cy.downPayment("2000");
     cy.wait(1000);
     // cy.get("[formcontrolname='tax_rate']").should("have.value");
