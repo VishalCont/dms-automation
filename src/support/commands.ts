@@ -12,6 +12,7 @@ require("./deal_builder/finance_calculation_type.command");
 require("./deal_builder/payment_schedule.command");
 require("./deal_builder/service_contract_existingVendor.command");
 require("./deal_builder/service_contract_newVendor.command");
+require("./deal_builder/remove_tradein.command")
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
