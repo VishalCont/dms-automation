@@ -17,6 +17,7 @@ describe("Demo", () => {
       }
     );
     const tradeQuotation = tradeInDetails[0];
+    cy.downPayment("2000");
     cy.tradeIn(
       tradeQuotation.dealerTradeInOffer,
       tradeQuotation.payOffLoanBalance,
@@ -49,5 +50,20 @@ describe("Demo", () => {
       quotation.totalOfGovernmentFees
     );
   });
-  it("", () => {});
+  it("Checking Sales Price,sales Tax, Other by adding tradein and downpayment", () => {
+    cy.wait(10000);
+    cy.downPayment("2000");
+    cy.wait(1000);
+    // cy.get("[formcontrolname='tax_rate']").should("have.value");
+    // //check other charges
+    // cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+    //   "have.value",
+    //   quotation.otherCharges
+    // );
+    // //check total gov charges
+    // cy.get(".btn-govtax input").should(
+    //   "have.value",
+    //   quotation.totalOfGovernmentFees
+    // );
+  });
 });
