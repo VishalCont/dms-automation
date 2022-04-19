@@ -64,10 +64,11 @@ describe("Sales Test cases", () => {
 
     //newvendor for service contract
     cy.newVendorForServiceContract(randomCompanyName);
-// cy.wait(5000);
-// cy.ClearServiceContract();
+     //ClearServiceContract
+ cy.wait(5000);
+ cy.ClearServiceContract();
 
-    //ClearServiceContract
+   
 
     //SAGI VSC
     //cy.get(`.modal-content input[formcontrolname='warrantyType'][value="SAGI VSC"]`).check();
