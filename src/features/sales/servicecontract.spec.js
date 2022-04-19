@@ -2,18 +2,18 @@
 import { API_URL, ENV } from "../../utils/constants";
 var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
-var faker = require("faker");
+var faker = require("@faker-js/faker");
 import { getRandomNumber } from "../../utils/random_number";
 describe("Sales Test cases", () => {
   it("Check the values of sales tax and Govt fees by changing the Vehicle sale Price ", () => {
     cy.login();
 
-    var randomCompanyName =  faker.name.firstName();
-//cy.newVendorForServiceContract("darin");
+    var randomCompanyName = faker.name.firstName();
+    //cy.newVendorForServiceContract("darin");
 
-    cy.log("company name from faker: "+randomCompanyName);
+    cy.log("company name from faker: " + randomCompanyName);
 
-   
+
 
     //Take Phone number from Json file and populate in  Phone field
     const customer = customerInfos[0];
@@ -45,7 +45,7 @@ describe("Sales Test cases", () => {
     cy.get("[formcontrolname='sale_price']")
       .clear()
       .type(quotation.vehicleSalePrice);
- 
+
     //Service contract button for existing vendor
     //cy.existingVendorForServiceContract();
 
@@ -63,23 +63,23 @@ describe("Sales Test cases", () => {
 
 
     //newvendor for service contract
-   cy.newVendorForServiceContract(randomCompanyName);
+    cy.newVendorForServiceContract(randomCompanyName);
 
 
     //SAGI VSC
     //cy.get(`.modal-content input[formcontrolname='warrantyType'][value="SAGI VSC"]`).check();
 
-//selecting BHPH
-// cy.get("input[formcontrolname='paymentRadios']").each(
-//   (ele, index, list) => {
-//     cy.log(ele);
-//     cy.log(index);
-//     if (index === 2) ele.trigger("click");
-//   }
-// );
-// cy.wait(2000);
+    //selecting BHPH
+    // cy.get("input[formcontrolname='paymentRadios']").each(
+    //   (ele, index, list) => {
+    //     cy.log(ele);
+    //     cy.log(index);
+    //     if (index === 2) ele.trigger("click");
+    //   }
+    // );
+    // cy.wait(2000);
 
-// //selecting days to first payment
-//     cy.get(`.payment-schedule-container input[formcontrolname='no_of_days_from_sale_date'][value="30"]`).check();
+    // //selecting days to first payment
+    //     cy.get(`.payment-schedule-container input[formcontrolname='no_of_days_from_sale_date'][value="30"]`).check();
   });
- });
+});

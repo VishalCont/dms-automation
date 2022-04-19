@@ -1,10 +1,9 @@
 /// <reference types ="Cypress"/>
-var faker = require("faker");
+var faker = require("@faker-js/faker");
 var vinGenerator = require("vin-generator");
 var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 import { getRandomNumber } from "../../utils/random_number";
 import { API_URL, ENV } from "../../utils/constants";
-var faker = require("faker");
 describe("TradeIn", () => {
   it("Adding Trade In", () => {
     cy.login();
