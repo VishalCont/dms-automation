@@ -17,6 +17,7 @@ require("./deal_builder/remove_tradein.command");
 require("./deal_builder/clear_dcc_gap.command");
 require("./deal_builder/clear_downpayment.command");
 require("./deal_builder/clear_defferdownpayment.command");
+require("./deal_builder/change_sale_type.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
