@@ -17,6 +17,9 @@ Cypress.Commands.add("newVendorForDCCAndGAP", (insuranceVendor, newVendorDetails
     cy.get("modal-container form button i").click();
     cy.get("modal-container input[formcontrolname='company_name']").type(`${newVendorDetails}`);
     //cy.get("input[formcontrolname='company_name']").type(`${newVendorDetails}`);
+    cy.get("modal-container input[formcontrolname='company_name']")
+        .invoke("val")
+        .should("not.be.empty");
     cy.get("button").contains(" Add ").should("be.visible").click();
 
 })

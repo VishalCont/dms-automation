@@ -4,11 +4,51 @@ var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
 var tradeInDetails = require(`../../data/trade_in_details.json`);
 describe("Demo", () => {
-  it("Checking Sales Price,sales Tax, Other by adding tradein ", () => {
+
+  it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     cy.login();
     const customer = customerInfos[0];
     cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
+    cy.wait(10000);
+    cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
+    //cy.downPayment("2000");
+    cy.wait(1000);
+    // cy.get("[formcontrolname='tax_rate']").should("have.value");
+    // //check other charges
+    // cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+    //   "have.value",
+    //   quotation.otherCharges
+    // );
+    // //check total gov charges
+    // cy.get(".btn-govtax input").should(
+    //   "have.value",
+    //   quotation.totalOfGovernmentFees
+    // );
+  });
+  it("Checking Sales Price,sales Tax, Other by adding Downpayment", () => {
+    const quotation = quotationDetails[1];
+    cy.wait(10000);
+    cy.downPayment("2000");
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation.salesTax
+    );
+    //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation.otherCharges
+    );
+    //check total gov charges
+    cy.get(".btn-govtax input").should(
+      "have.value",
+      quotation.totalOfGovernmentFees
+    );
+
+    cy.wait(1000);
+  })
+  it("Checking Sales Price,sales Tax, Other by adding tradein ", () => {
+
     cy.get("input[formcontrolname='paymentRadios']").each(
       (ele, index, list) => {
         cy.log(ele);
@@ -17,7 +57,7 @@ describe("Demo", () => {
       }
     );
     const tradeQuotation = tradeInDetails[0];
-    cy.downPayment("2000");
+    // cy.downPayment("2000");
     cy.tradeIn(
       tradeQuotation.dealerTradeInOffer,
       tradeQuotation.payOffLoanBalance,
@@ -50,21 +90,5 @@ describe("Demo", () => {
       quotation.totalOfGovernmentFees
     );
   });
-  it("Checking Sales Price,sales Tax, Other by adding tradein and downpayment", () => {
-    cy.wait(10000);
-    cy.removeTradeIn();
-    cy.downPayment("2000");
-    cy.wait(1000);
-    // cy.get("[formcontrolname='tax_rate']").should("have.value");
-    // //check other charges
-    // cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
-    //   "have.value",
-    //   quotation.otherCharges
-    // );
-    // //check total gov charges
-    // cy.get(".btn-govtax input").should(
-    //   "have.value",
-    //   quotation.totalOfGovernmentFees
-    // );
-  });
+
 });
