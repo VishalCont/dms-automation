@@ -2,11 +2,11 @@
 import { API_URL, ENV } from "../../utils/constants";
 var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
-var faker = require("@faker-js/faker");
+import { faker } from '@faker-js/faker';
 import { getRandomNumber } from "../../utils/random_number";
 describe("Sales Test cases", () => {
   it("Check the values of sales tax and Govt fees by changing the Vehicle sale Price ", () => {
-    var firstnamefake =faker.name.firstName();
+    var firstnamefake =faker.name.firstName("male");
     cy.log("name from faker: "+firstnamefake);
     cy.login();
 
@@ -47,7 +47,7 @@ describe("Sales Test cases", () => {
       .type(quotation.vehicleSalePrice);
 
     //newvendor for service contract
-    cy.existingVendorForServiceContract(randomCompanyName);
+    cy.newVendorForServiceContract(randomCompanyName);
     //ClearServiceContract
     //cy.wait(5000);
     //cy.ClearServiceContract();
