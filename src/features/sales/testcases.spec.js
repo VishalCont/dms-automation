@@ -40,7 +40,9 @@ describe("Dealbuilder Testcases", () => {
      .clear()
        .type(quotation.vehicleSalePrice);
 
-       cy.existingVendorForDCCAndGAP("DCC", "Colby", "200", "230");    
+    //DccGap existing   
+    cy.existingVendorForDCCAndGAP("DCC", "Colby", "200", "230");  
+    cy.wait(2000);
 
     // //check sales tax
     cy.get("[formcontrolname='tax_rate']").should(
