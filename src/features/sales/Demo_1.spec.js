@@ -8,17 +8,33 @@ describe("Demo", () => {
   it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     cy.login();
     const customer = customerInfos[0];
+    const quotation = quotationDetails[5];
     cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
     cy.wait(10000);
+    cy.get("input[formcontrolname='paymentRadios']").each(
+
+      (ele, index, list) => {
+
+        cy.log(ele);
+
+        cy.log(index);
+
+        if (index === 2) ele.trigger("click");
+
+      }
+
+    );
     cy.get("[formcontrolname='sale_price']")
       .clear()
       .type(quotation.vehicleSalePrice);
     cy.get("body").click();
-    const quotation = quotationDetails[4];
+    cy.log("salesprice value: " + quotation.vehicleSalePrice + "salestax value: " + quotation.salesTax + "govtfeee vlaue is :" + quotation.totalOfGovernmentFees + "Otherchargesvalue : " + quotation.otherCharges);
+
+
     cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
     //cy.downPayment("2000");
-    cy.wait(1000);
+    cy.wait(2000);
     cy.get("[formcontrolname='tax_rate']").should(
       "have.value",
       quotation.salesTax
@@ -47,40 +63,35 @@ describe("Demo", () => {
     // );
   });
   it("Checking Sales Price,sales Tax, Other by adding Downpayment", () => {
-    const quotation = quotationDetails[1];
+    const quotation1 = quotationDetails[5];
     cy.wait(10000);
     cy.get("[formcontrolname='sale_price']")
       .clear()
-      .type(quotation.vehicleSalePrice);
+      .type(quotation1.vehicleSalePrice);
     cy.get("body").click();
-    cy.clearDccGapValue();
+
     cy.downPayment("2000");
+    cy.clearDccGapValue();
     cy.get("[formcontrolname='tax_rate']").should(
       "have.value",
-      quotation.salesTax
+      quotation1.salesTax
     );
     //check other charges
     cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
       "have.value",
-      quotation.otherCharges
+      quotation1.otherCharges
     );
     //check total gov charges
     cy.get(".btn-govtax input").should(
       "have.value",
-      quotation.totalOfGovernmentFees
+      quotation1.totalOfGovernmentFees
     );
 
     cy.wait(1000);
   })
   it("Checking Sales Price,sales Tax, Other by adding tradein ", () => {
 
-    cy.get("input[formcontrolname='paymentRadios']").each(
-      (ele, index, list) => {
-        cy.log(ele);
-        cy.log(index);
-        if (index === 2) ele.trigger("click");
-      }
-    );
+
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
     cy.tradeIn(
@@ -89,31 +100,68 @@ describe("Demo", () => {
       tradeQuotation.cashPaidToBuyer,
       tradeQuotation.actualCashValue
     );
-    const quotation = quotationDetails[0];
+    const quotation2 = quotationDetails[0];
     cy.intercept(`${ENV}/dealeradminnew/dealer_max_apr/detail/77/1407`).as(
       "changeSalePrice"
     );
     cy.get("[formcontrolname='sale_price']")
       .clear()
-      .type(quotation.vehicleSalePrice);
+      .type(quotation2.vehicleSalePrice);
     cy.get("body").click();
     //check sales tax
     //cy.wait("@changeSalePrice");
     cy.wait(1000);
     cy.get("[formcontrolname='tax_rate']").should(
       "have.value",
-      quotation.salesTax
+      quotation2.salesTax
     );
     //check other charges
     cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
       "have.value",
-      quotation.otherCharges
+      quotation2.otherCharges
     );
     //check total gov charges
     cy.get(".btn-govtax input").should(
       "have.value",
-      quotation.totalOfGovernmentFees
+      quotation2.totalOfGovernmentFees
     );
   });
+  it("Checking Sales Price,sales Tax, Other by adding tradein and downpayment ", () => {
 
+
+    const tradeQuotation = tradeInDetails[0];
+    // cy.downPayment("2000");
+    cy.tradeIn(
+      tradeQuotation.dealerTradeInOffer,
+      tradeQuotation.payOffLoanBalance,
+      tradeQuotation.cashPaidToBuyer,
+      tradeQuotation.actualCashValue
+    );
+    const quotation2 = quotationDetails[0];
+    cy.intercept(`${ENV}/dealeradminnew/dealer_max_apr/detail/77/1407`).as(
+      "changeSalePrice"
+    );
+    cy.downPayment("2000");
+    cy.get("[formcontrolname='sale_price']")
+      .clear()
+      .type(quotation2.vehicleSalePrice);
+    cy.get("body").click();
+    //check sales tax
+    //cy.wait("@changeSalePrice");
+    cy.wait(1000);
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation2.salesTax
+    );
+    //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation2.otherCharges
+    );
+    //check total gov charges
+    cy.get(".btn-govtax input").should(
+      "have.value",
+      quotation2.totalOfGovernmentFees
+    );
+  });
 });

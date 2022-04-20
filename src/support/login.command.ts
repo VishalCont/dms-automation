@@ -9,6 +9,6 @@ export function login(username?: string, password?: string) {
   });
   cy.get('button[type="submit"]').click();
   cy.wait("@LoginWait");
-  cy.wait(2000);
+  cy.wait(5000);
   cy.location("pathname").should("equal", "/dashboard");
 }
