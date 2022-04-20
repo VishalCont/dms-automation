@@ -11,9 +11,29 @@ describe("Demo", () => {
     cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
     cy.wait(10000);
+    cy.get("[formcontrolname='sale_price']")
+      .clear()
+      .type(quotation.vehicleSalePrice);
+    cy.get("body").click();
+    const quotation = quotationDetails[4];
     cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
     //cy.downPayment("2000");
     cy.wait(1000);
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation.salesTax
+    );
+    // //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation.otherCharges
+    );
+
+    // //sales price
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation.salesPrice
+    );
     // cy.get("[formcontrolname='tax_rate']").should("have.value");
     // //check other charges
     // cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
@@ -29,6 +49,11 @@ describe("Demo", () => {
   it("Checking Sales Price,sales Tax, Other by adding Downpayment", () => {
     const quotation = quotationDetails[1];
     cy.wait(10000);
+    cy.get("[formcontrolname='sale_price']")
+      .clear()
+      .type(quotation.vehicleSalePrice);
+    cy.get("body").click();
+    cy.clearDccGapValue();
     cy.downPayment("2000");
     cy.get("[formcontrolname='tax_rate']").should(
       "have.value",
