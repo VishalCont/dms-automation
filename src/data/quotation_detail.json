@@ -5,7 +5,7 @@
     "salesPrice": 7476.0,
     "otherCharges": "288.50",
     "totalOfGovernmentFees": "288.50",
-    "downPayment": 10913.5
+    "downpayment": 10913.5
   },
   {
     "vehicleSalePrice": 20000,
@@ -20,5 +20,33 @@
     "salesTax": "625.00",
     "otherCharges": "518.50",
     "totalOfGovernmentFees": "323.50"
+  },
+  {
+    "vehicleSalePrice": 20000,
+    "salesPrice": "10000",
+    "salesTax": "625.00",
+    "otherCharges": "488.50",
+    "totalOfGovernmentFees": "288.50"
+  },
+  {
+    "vehicleSalePrice": 10000,
+    "salesPrice": "11443.50",
+    "salesTax": "625.00",
+    "otherCharges": "818.50",
+    "totalOfGovernmentFees": "323.50"
+  },
+  {
+    "vehicleSalePrice": 15000,
+    "salesPrice": "16468.50",
+    "salesTax": "937.50",
+    "otherCharges": "531.00",
+    "totalOfGovernmentFees": "301.00"
+  },
+  {
+    "vehicleSalePrice": 15000,
+    "salesPrice": "16468.50",
+    "salesTax": "937.50",
+    "otherCharges": "301.00",
+    "totalOfGovernmentFees": "301.00"
   }
 ]

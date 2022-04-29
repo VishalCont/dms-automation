@@ -2,18 +2,18 @@
 import { API_URL, ENV } from "../../utils/constants";
 var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
-var faker = require("@faker-js/faker");
+import { faker } from '@faker-js/faker';
 import { getRandomNumber } from "../../utils/random_number";
 describe("Sales Test cases", () => {
   it("Check the values of sales tax and Govt fees by changing the Vehicle sale Price ", () => {
+    var firstnamefake =faker.name.firstName("male");
+    cy.log("name from faker: "+firstnamefake);
     cy.login();
 
     var randomCompanyName = faker.name.firstName();
     //cy.newVendorForServiceContract("darin");
 
     cy.log("company name from faker: " + randomCompanyName);
-
-
 
     //Take Phone number from Json file and populate in  Phone field
     const customer = customerInfos[0];
@@ -46,29 +46,11 @@ describe("Sales Test cases", () => {
       .clear()
       .type(quotation.vehicleSalePrice);
 
-    //Service contract button for existing vendor
-    //cy.existingVendorForServiceContract();
-
-    //clearing service contract
-    // cy.get("button")
-    //   .contains("Service Contract")
-    //   .click();
-    // cy.contains("Vehicle Service Contract(VSC)").should("be.visible");
-    // cy.get("button").contains(" Clear Service Contract ").click();
-    // cy.wait(1000);
-    // cy.get("input[formcontrolname = 'Warranty']")
-    //   .invoke("val")
-    //   .should("contain", "0.00");
-
-
-
     //newvendor for service contract
     cy.newVendorForServiceContract(randomCompanyName);
-     //ClearServiceContract
- cy.wait(5000);
- cy.ClearServiceContract();
-
-   
+    //ClearServiceContract
+    //cy.wait(5000);
+    //cy.ClearServiceContract();
 
     //SAGI VSC
     //cy.get(`.modal-content input[formcontrolname='warrantyType'][value="SAGI VSC"]`).check();

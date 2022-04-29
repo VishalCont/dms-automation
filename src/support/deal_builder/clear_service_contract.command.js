@@ -2,7 +2,7 @@
 
 /// <reference types ="Cypress"/>
 
-     Cypress.Commands.add("ClearServiceContract", () =>{
+     Cypress.Commands.add("clearServiceContract", () =>{
      
 
      //clearing service contract
