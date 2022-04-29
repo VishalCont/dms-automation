@@ -34,7 +34,7 @@ describe("Sales Test cases", () => {
     // array.first(); it selects first vehicle
     cy.intercept(`${API_URL}/sales/credit700/*`).as("dealBuilder");
     cy.get("a.vehicle-select").first().click();
-    cy.wait("@dealBuilder", { timeout: 10000 });
+    cy.wait("@dealBuilder", { timeout: 15000 });
 
     //check with Api call if the page is moved to Dealbuilder page
     cy.contains("Quotation Detail").should("be.visible");
@@ -47,10 +47,13 @@ describe("Sales Test cases", () => {
       .type(quotation.vehicleSalePrice);
 
     //newvendor for service contract
-    cy.newVendorForServiceContract(randomCompanyName);
+   //cy.newVendorForServiceContract(randomCompanyName);
     //ClearServiceContract
     //cy.wait(5000);
     //cy.ClearServiceContract();
+
+    //for existing customer
+    cy.existingVendorForServiceContract("200","123");
 
     //SAGI VSC
     //cy.get(`.modal-content input[formcontrolname='warrantyType'][value="SAGI VSC"]`).check();
