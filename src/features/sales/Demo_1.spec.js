@@ -4,7 +4,6 @@ var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
 var tradeInDetails = require(`../../data/trade_in_details.json`);
 describe("Demo", () => {
-
   it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     cy.login();
     const customer = customerInfos[0];
@@ -13,24 +12,28 @@ describe("Demo", () => {
     cy.selectVehicle();
     cy.wait(10000);
     cy.get("input[formcontrolname='paymentRadios']").each(
-
       (ele, index, list) => {
-
         cy.log(ele);
 
         cy.log(index);
 
         if (index === 2) ele.trigger("click");
-
       }
-
     );
     cy.get("[formcontrolname='sale_price']")
       .clear()
       .type(quotation.vehicleSalePrice);
     cy.get("body").click();
-    cy.log("salesprice value: " + quotation.vehicleSalePrice + "salestax value: " + quotation.salesTax + "govtfeee vlaue is :" + quotation.totalOfGovernmentFees + "Otherchargesvalue : " + quotation.otherCharges);
-
+    cy.log(
+      "salesprice value: " +
+        quotation.vehicleSalePrice +
+        "salestax value: " +
+        quotation.salesTax +
+        "govtfeee vlaue is :" +
+        quotation.totalOfGovernmentFees +
+        "Otherchargesvalue : " +
+        quotation.otherCharges
+    );
 
     cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
     //cy.downPayment("2000");
@@ -88,10 +91,8 @@ describe("Demo", () => {
     );
 
     cy.wait(1000);
-  })
+  });
   it("Checking Sales Price,sales Tax, Other by adding tradein ", () => {
-
-
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
     cy.tradeIn(
@@ -127,8 +128,6 @@ describe("Demo", () => {
     );
   });
   it("Checking Sales Price,sales Tax, Other by adding tradein and downpayment ", () => {
-
-
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
     cy.tradeIn(
