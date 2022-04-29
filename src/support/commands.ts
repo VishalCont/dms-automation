@@ -1,4 +1,6 @@
+import cypress = require("cypress");
 import { defferedDownPayment } from "./deal_builder/differed_downpayment.command";
+import { installmentAmount } from "./deal_builder/installment_amount_validation.command";
 import { ICustomer, lookupExitingCustomer } from "./deal_builder/lookup_existing_customer.command";
 import { login } from "./login.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
@@ -12,7 +14,7 @@ require("./deal_builder/finance_calculation_type.command");
 require("./deal_builder/payment_schedule.command");
 require("./deal_builder/service_contract_existingVendor.command");
 require("./deal_builder/service_contract_newVendor.command");
-require("./deal_builder/remove_tradein.command")
+require("./deal_builder/remove_tradein.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
@@ -25,6 +27,7 @@ declare global {
       login: (a?: string, b?: string) => void;
       lookupExitingCustomer: (customer: ICustomer) => void;
       defferedDownPayment: (differedDate: Date, differedDownPaymentAmount: number) => void;
+      installmentAmount: (paymentCalculationType:string) =>void;
     }
   }
 }
@@ -33,3 +36,4 @@ declare global {
 Cypress.Commands.add("login", login);
 Cypress.Commands.add("lookupExitingCustomer", lookupExitingCustomer);
 Cypress.Commands.add("defferedDownPayment", defferedDownPayment);
+Cypress.Commands.add("installmentAmount", installmentAmount);
