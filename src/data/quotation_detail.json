@@ -48,5 +48,11 @@
     "salesTax": "937.50",
     "otherCharges": "301.00",
     "totalOfGovernmentFees": "301.00"
+  },
+  {
+    "vehicleSalePrice": 10000,
+    "salesPrice": "11143.50",
+    "salesTax": "625.00",
+    "otherCharges": "518.50"
   }
 ]
