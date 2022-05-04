@@ -21,6 +21,8 @@ require("./deal_builder/clear_dcc_gap.command");
 require("./deal_builder/clear_downpayment.command");
 require("./deal_builder/clear_defferdownpayment.command");
 require("./deal_builder/change_sale_type.command");
+require("./deal_builder/otherCharges_selection.command");
+require("./deal_builder/financeChargeRateParticipation");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
@@ -33,7 +35,7 @@ declare global {
       login: (a?: string, b?: string) => void;
       lookupExitingCustomer: (customer: ICustomer) => void;
       defferedDownPayment: (differedDate: Date, differedDownPaymentAmount: number) => void;
-      installmentAmount: (paymentCalculationType:string) =>void;
+      installmentAmount: (paymentCalculationType: string) => void;
     }
   }
 }
