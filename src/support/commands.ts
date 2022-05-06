@@ -23,6 +23,7 @@ require("./deal_builder/clear_defferdownpayment.command");
 require("./deal_builder/change_sale_type.command");
 //require("./deal_builder/otherCharges_selection.command");
 require("./deal_builder/financeCharge_rate.command");
+require("./deal_builder/local_storage_memory.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {

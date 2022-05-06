@@ -4,6 +4,9 @@ var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
 var tradeInDetails = require(`../../data/trade_in_details.json`);
 describe("Demo", () => {
+  beforeEach(() => { cy.restoreLocalStorageCache(); });
+
+  afterEach(() => { cy.saveLocalStorageCache(); });
   it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     cy.login();
     const customer = customerInfos[0];
@@ -26,13 +29,13 @@ describe("Demo", () => {
     cy.get("body").click();
     cy.log(
       "salesprice value: " +
-        quotation.vehicleSalePrice +
-        "salestax value: " +
-        quotation.salesTax +
-        "govtfeee vlaue is :" +
-        quotation.totalOfGovernmentFees +
-        "Otherchargesvalue : " +
-        quotation.otherCharges
+      quotation.vehicleSalePrice +
+      "salestax value: " +
+      quotation.salesTax +
+      "govtfeee vlaue is :" +
+      quotation.totalOfGovernmentFees +
+      "Otherchargesvalue : " +
+      quotation.otherCharges
     );
 
     cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
@@ -187,30 +190,30 @@ describe("Demo", () => {
       .clear()
       .type(quotation.vehicleSalePrice);
 
-  cy.wait(5000);
-  //adding downpayment
-  cy.downPayment("1000");
-  cy.wait(5000);
-  //adding dcc/gap
-  cy.existingVendorForDCCAndGAP("DCC", "qwerty", "200", "230");
-  cy.get("input[formcontrolname = 'dcc_sale_price']")
-    .invoke("val")
-    .should("not.be.empty");
+    cy.wait(5000);
+    //adding downpayment
+    cy.downPayment("1000");
+    cy.wait(5000);
+    //adding dcc/gap
+    cy.existingVendorForDCCAndGAP("DCC", "qwerty", "200", "230");
+    cy.get("input[formcontrolname = 'dcc_sale_price']")
+      .invoke("val")
+      .should("not.be.empty");
 
     //check sales tax
     cy.get("[formcontrolname='tax_rate']").should(
       "have.value",
       quotation.salesTax
     );
-   //check other charges
+    //check other charges
     cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
       "have.value",
       quotation.otherCharges
     );
-   //sales price
+    //sales price
     cy.get("[formcontrolname='quotation_price']").should(
-       "have.value",
-        quotation.salesPrice
-     );
+      "have.value",
+      quotation.salesPrice
+    );
   })
 });

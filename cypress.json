@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://dev.desidms.com",
+  "baseUrl": "https://stage.desidms.com",
   "viewportWidth": 1400,
   "integrationFolder": "src",
   "viewportHeight": 700,
