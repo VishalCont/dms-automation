@@ -138,6 +138,15 @@ Cypress.Commands.add(
         cy.get("button").contains("SAVE & CONTINUE").click();
       }
     });
+    cy.get("body").then((body) => {
+      if (body.find("div:contains(Please Provide Model)").length === 0) {
+        cy.log(" vehicle have model");
+      } else {
+        cy.log("vehicle dont have proper model");
+        cy.tradeFetch();
+        cy.get("button").contains("SAVE & CONTINUE").click();
+      }
+    });
 
     // const stockNumberExists = cy
     //   .find("div")
@@ -148,7 +157,7 @@ Cypress.Commands.add(
     //     faker.random.alphaNumeric(5)
     //   );
     // }
-    cy.wait("@tradeInWait");
+    cy.wait("@tradeInWait", 10000);
     cy.wait(3000);
     cy.debug();
   }

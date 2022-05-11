@@ -10,8 +10,19 @@ describe("TradeIn", () => {
     const customer = customerInfos[0];
     cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
+    cy.wait("2000");
+    cy.get("input[formcontrolname='paymentRadios']").each(
+      (ele, index, list) => {
+        cy.log(ele);
+
+        cy.log(index);
+
+        if (index === 2) ele.trigger("click");
+      }
+    );
     //cy.get("#TableQuotation i.fa-plus").click();
     cy.tradeIn("7000", "2000", "2000", "8000");
+    cy.installmentAmount("Number Of Payments");
     //TOdo Inputs for all the values
     //TOdo calculate profit on vehicle
     //TOdo Add TradeIn
