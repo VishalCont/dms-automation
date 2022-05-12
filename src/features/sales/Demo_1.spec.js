@@ -73,7 +73,8 @@ describe("Demo", () => {
     // );
   });
   it("Checking Sales Price,sales Tax, Other by adding Downpayment", () => {
-    const quotation1 = quotationDetails[5];
+    cy.clearDccGapValue();
+    const quotation1 = quotationDetails[4];
     //cy.wait(10000);
     cy.get("[formcontrolname='sale_price']")
       .clear()
@@ -81,10 +82,13 @@ describe("Demo", () => {
     cy.get("body").click();
 
     cy.downPayment("2000");
-    cy.clearDccGapValue();
     cy.get("[formcontrolname='tax_rate']").should(
       "have.value",
       quotation1.salesTax
+    );
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation1.salesPrice
     );
     //check other charges
     cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
@@ -102,15 +106,20 @@ describe("Demo", () => {
   it("Checking Sales Price,sales Tax, Other by adding tradein ", () => {
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
+    cy.clearDownpayment();
     cy.tradeIn(
       tradeQuotation.dealerTradeInOffer,
       tradeQuotation.payOffLoanBalance,
       tradeQuotation.cashPaidToBuyer,
       tradeQuotation.actualCashValue
     );
-    const quotation2 = quotationDetails[0];
+    const quotation2 = quotationDetails[3];
     cy.intercept(`${ENV}/dealeradminnew/dealer_max_apr/detail/77/1407`).as(
       "changeSalePrice"
+    );
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation2.salesPrice
     );
     cy.get("[formcontrolname='sale_price']")
       .clear()
@@ -148,12 +157,18 @@ describe("Demo", () => {
     cy.intercept(`${ENV}/dealeradminnew/dealer_max_apr/detail/77/1407`).as(
       "changeSalePrice"
     );
-    cy.clearDownpayment();
+    cy.wait(5000);
     cy.downPayment("2000");
+    cy.wait(2000);
     cy.get("[formcontrolname='sale_price']")
       .clear()
       .type(quotation2.vehicleSalePrice);
     cy.get("body").click();
+    cy.wait(2000);
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation2.salesPrice
+    );
     //check sales tax
     //cy.wait("@changeSalePrice");
     cy.wait(2000);
@@ -223,5 +238,68 @@ describe("Demo", () => {
       quotation.salesPrice
     );
   });
-  it("Checking sales price,salestax, Other charges by adding service contract", () => {});
+  it("Checking sales price,salestax, Other charges by adding service contract", () => {
+    cy.clearDccGapValue();
+    cy.clearDownpayment();
+    cy.existingVendorForServiceContract("Vendor", "125", "125");
+    const quotation = quotationDetails[8];
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation.salesTax
+    );
+    //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation.otherCharges
+    );
+    //sales price
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation.salesPrice
+    );
+  });
+  it("Checking sales Price,Salestax, Other charges by adding Defered Downpayment", () => {
+    cy.clearServiceContract();
+    cy.defferedDownPayment("05/10/2022", "20");
+    const quotation = quotationDetails[9];
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation.salesTax
+    );
+    //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation.otherCharges
+    );
+    //sales price
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation.salesPrice
+    );
+  });
+  it("Checking sales Price,Salestax, Other charges by adding Defered Downpayment and Service Contract", () => {
+    cy.clearDefferdownpayment();
+    cy.defferedDownPayment("05/10/2022", 40);
+    cy.existingVendorForServiceContract("Vendor", "125", "125");
+    const quotation = quotationDetails[10];
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation.salesTax
+    );
+    //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation.otherCharges
+    );
+    //sales price
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation.salesPrice
+    );
+  });
+  it("Checking Sales Price, Salestax, Other chrges by adding Dcc/Gap and Defered Downpayment", () => {
+    cy.clearDefferdownpayment();
+    cy.clearServiceContract();
+    cy.defferedDownPayment("05/10/2022", 80);
+  });
 });

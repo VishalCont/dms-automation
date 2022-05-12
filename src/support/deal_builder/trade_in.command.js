@@ -144,6 +144,9 @@ Cypress.Commands.add(
       } else {
         cy.log("vehicle dont have proper model");
         cy.tradeFetch();
+        cy.get("input[formcontrolname = 'mileage']").type(
+          getRandomNumber(5000, 12000)
+        );
         cy.get("button").contains("SAVE & CONTINUE").click();
       }
     });
@@ -158,7 +161,7 @@ Cypress.Commands.add(
     //   );
     // }
     cy.wait("@tradeInWait", 10000);
-    cy.wait(3000);
+    //cy.wait(3000);
     cy.debug();
   }
 );
