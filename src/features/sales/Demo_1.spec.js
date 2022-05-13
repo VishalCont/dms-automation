@@ -147,6 +147,9 @@ describe("Demo", () => {
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
     cy.removeTradeIn();
+    cy.wait(5000);
+    cy.downPayment("2000");
+    cy.wait(3000);
     cy.tradeIn(
       tradeQuotation.dealerTradeInOffer,
       tradeQuotation.payOffLoanBalance,
@@ -154,16 +157,14 @@ describe("Demo", () => {
       tradeQuotation.actualCashValue
     );
     const quotation2 = quotationDetails[1];
-    cy.intercept(`${ENV}/dealeradminnew/dealer_max_apr/detail/77/1407`).as(
-      "changeSalePrice"
-    );
-    cy.wait(5000);
-    cy.downPayment("2000");
-    cy.wait(2000);
+    // cy.intercept(`${ENV}/dealeradminnew/dealer_max_apr/detail/77/1407`).as(
+    //   "changeSalePrice"
+    // );
     cy.get("[formcontrolname='sale_price']")
       .clear()
       .type(quotation2.vehicleSalePrice);
     cy.get("body").click();
+    //66cy.wait("@changeSalePrice");
     cy.wait(2000);
     cy.get("[formcontrolname='quotation_price']").should(
       "have.value",
@@ -213,6 +214,7 @@ describe("Demo", () => {
 
     cy.wait(5000);
     cy.clearDownpayment();
+    cy.removeTradeIn();
     //adding downpayment
     cy.downPayment("1000");
     cy.wait(5000);
