@@ -74,7 +74,7 @@ describe("Demo", () => {
     //   quotation.totalOfGovernmentFees
     // );
   });
-  it("Checking Sales Price,sales Tax, Other by adding Downpayment", () => {
+  it("Checking Sales Price,sales Tax, Other by adding downPayment", () => {
     cy.clearDccGapValue();
     const quotation1 = quotationDetails[4];
     //cy.wait(10000);
@@ -105,7 +105,7 @@ describe("Demo", () => {
 
     cy.wait(1000);
   });
-  it("Checking Sales Price,sales Tax, Other by adding tradein ", () => {
+  it("Checking Sales Price,sales Tax, Other by adding tradeIn ", () => {
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
     cy.clearDownpayment();
@@ -145,7 +145,7 @@ describe("Demo", () => {
       quotation2.totalOfGovernmentFees
     );
   });
-  it("Checking Sales Price,sales Tax, Other by adding tradein and downpayment ", () => {
+  it("Checking Sales Price,sales Tax, Other by adding tradeIn and downPayment ", () => {
     const tradeQuotation = tradeInDetails[0];
     // cy.downPayment("2000");
     cy.removeTradeIn();
@@ -190,7 +190,7 @@ describe("Demo", () => {
       quotation2.totalOfGovernmentFees
     );
   });
-  it("Checking Sales Price,salestax,Other charges  by adding Dcc/Gap and Downpayment", () => {
+  it("Checking Sales Price,salesTax,Other charges  by adding Dcc/Gap and downPayment", () => {
     // cy.login();
     // const customer = customerInfos[0];
     const quotation = quotationDetails[7];
@@ -242,7 +242,7 @@ describe("Demo", () => {
       quotation.salesPrice
     );
   });
-  it("Checking sales price,salestax, Other charges by adding service contract", () => {
+  it("Checking sales price,salesTax, Other charges by adding service contract", () => {
     cy.clearDccGapValue();
     cy.clearDownpayment();
     cy.existingVendorForServiceContract("Vendor", "125", "125");
@@ -262,7 +262,7 @@ describe("Demo", () => {
       quotation.salesPrice
     );
   });
-  it("Checking sales Price,Salestax, Other charges by adding Defered Downpayment", () => {
+  it("Checking sales Price,salesTax, Other charges by adding deferred downPayment", () => {
     cy.clearServiceContract();
     cy.defferedDownPayment(moment().add(10, "days").format("MM/DD/YYYY"), "20");
     const quotation = quotationDetails[9];
@@ -281,7 +281,7 @@ describe("Demo", () => {
       quotation.salesPrice
     );
   });
-  it("Checking sales Price,Salestax, Other charges by adding Defered Downpayment and Service Contract", () => {
+  it("Checking sales Price,salesTax, Other charges by adding deferred downPayment and Service Contract", () => {
     cy.clearDefferdownpayment();
     cy.defferedDownPayment(moment().add(10, "days").format("MM/DD/YYYY"), 40);
     cy.existingVendorForServiceContract("Vendor", "125", "125");
@@ -301,7 +301,7 @@ describe("Demo", () => {
       quotation.salesPrice
     );
   });
-  it("Checking Sales Price, Salestax, Other chrges by adding Dcc/Gap and Defered Downpayment", () => {
+  it("Checking Sales Price, salesTax, Other charges by adding Dcc/Gap and deferred downPayment", () => {
     cy.clearDefferdownpayment();
     cy.clearServiceContract();
     cy.defferedDownPayment(moment().add(10, "days").format("MM/DD/YYYY"), 80);
