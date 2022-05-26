@@ -74,6 +74,9 @@ describe("Demo", () => {
     //   quotation.totalOfGovernmentFees
     // );
   });
+  it("Test", () => {
+    cy.installmentAmount("totalAmountMonthly", 24.82, 653.22);
+  });
   it("Checking Sales Price,sales Tax, Other by adding downPayment", () => {
     cy.clearDccGapValue();
     const quotation1 = quotationDetails[4];
@@ -321,5 +324,11 @@ describe("Demo", () => {
       "have.value",
       quotation.salesPrice
     );
+  });
+  it("Checking Sales Price, Sales Tax, Other Charges by adding Service Contract and deferred downPayment ", () => {
+    cy.clearDefferdownpayment();
+    cy.clearDccGapValue();
+    cy.wait(2000);
+    cy.installmentAmount("apr");
   });
 });
