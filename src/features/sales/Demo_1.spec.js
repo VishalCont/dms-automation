@@ -11,7 +11,7 @@ describe("Demo", () => {
 
   afterEach(() => {
     cy.saveLocalStorageCache();
-  });
+  });  
   it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     //cy.log(moment().add(10, "days").format("MM/DD/YYYY"));
     cy.login();
@@ -74,6 +74,9 @@ describe("Demo", () => {
     //   quotation.totalOfGovernmentFees
     // );
   });
+  it("adding new lien holder and finance rate participation aswellas flat rate check", ()=> {
+    cy.addVendorLienHolder();
+  })
   it("Test", () => {
     cy.verifyScreen();
   });
