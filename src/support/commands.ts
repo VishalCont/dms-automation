@@ -4,6 +4,8 @@ import { installmentAmount } from "./deal_builder/installment_amount_validation.
 import { ICustomer, lookupExitingCustomer } from "./deal_builder/lookup_existing_customer.command";
 import { login } from "./login.command";
 import {defSalesTax} from"./deal_builder/deferred_sales_tax.command"
+import { changeSaleDate } from "./deal_builder/change_sale_date.command";
+import{ verifyScreen } from "./deal_builder/verify_screen.command"
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -39,6 +41,8 @@ declare global {
       defferedDownPayment: (differedDate: Date, differedDownPaymentAmount: number) => void;
       installmentAmount: (paymentCalculationType: "numberOfPayments"|"apr"|"totalAmountMonthly") => void //noOfPayments or apr or totalAmountMonthly;
       defSalesTax: (taxInclude: "yes"|"no") => void
+      changeSaleDate: (date:Date) => void
+      verifyScreen: () => void
     }
   }
 }
@@ -49,3 +53,5 @@ Cypress.Commands.add("lookupExitingCustomer", lookupExitingCustomer);
 Cypress.Commands.add("defferedDownPayment", defferedDownPayment);
 Cypress.Commands.add("installmentAmount", installmentAmount);
 Cypress.Commands.add("defSalesTax", defSalesTax);
+Cypress.Commands.add("changeSaleDate", changeSaleDate);
+Cypress.Commands.add("verifyScreen", verifyScreen);

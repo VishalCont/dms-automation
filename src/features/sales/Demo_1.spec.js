@@ -75,7 +75,7 @@ describe("Demo", () => {
     // );
   });
   it("Test", () => {
-    cy.installmentAmount("totalAmountMonthly", 24.82, 653.22);
+    cy.verifyScreen();
   });
   it("Checking Sales Price,sales Tax, Other by adding downPayment", () => {
     cy.clearDccGapValue();
@@ -329,6 +329,25 @@ describe("Demo", () => {
     cy.clearDefferdownpayment();
     cy.clearDccGapValue();
     cy.wait(2000);
-    cy.installmentAmount("apr");
+    cy.installmentAmount("apr", "59.75", "672.24");
+    const quotation = quotationDetails[12];
+    cy.get("[formcontrolname='tax_rate']").should(
+      "have.value",
+      quotation.salesTax
+    );
+    //check other charges
+    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+      "have.value",
+      quotation.otherCharges
+    );
+    //sales price
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation.salesPrice
+    );
   });
+  it("Checking and APR || Installment Amount || Number of Payments by changing financing calculation method", () => {
+    cy.installmentAmount("numberOfPayments");
+  });
+  it("checking verify screen page", () => {});
 });

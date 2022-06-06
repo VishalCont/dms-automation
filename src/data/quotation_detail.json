@@ -78,5 +78,11 @@
     "salesPrice": "11143.50",
     "salesTax": "625.00",
     "otherCharges": "518.50"
+  },
+  {
+    "vehicleSalePrice": 10000,
+    "salesPrice": "11143.50",
+    "salesTax": "625.00",
+    "otherCharges": "518.50"
   }
 ]
