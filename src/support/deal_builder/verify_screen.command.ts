@@ -9,5 +9,5 @@ export function verifyScreen(){
     cy.wait('@verifyScreenWait');
     cy.wait(2000);
     cy.get("h4").should("contain","Verify Sale Information");
-    cy.get()
+    
 }
