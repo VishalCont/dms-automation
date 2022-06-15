@@ -11,7 +11,7 @@ describe("Demo", () => {
 
   afterEach(() => {
     cy.saveLocalStorageCache();
-  });  
+  });
   it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     //cy.log(moment().add(10, "days").format("MM/DD/YYYY"));
     cy.login();
@@ -74,11 +74,10 @@ describe("Demo", () => {
     //   quotation.totalOfGovernmentFees
     // );
   });
-  it("adding new lien holder and finance rate participation aswellas flat rate check", ()=> {
-    cy.addVendorLienHolder();
-  })
   it("Test", () => {
-    cy.verifyScreen();
+    cy.installmentAmount("numberOfPayments");
+    const customer = customerInfos[0];
+    cy.verifyScreen(customer);
   });
   it("Checking Sales Price,sales Tax, Other by adding downPayment", () => {
     cy.clearDccGapValue();
@@ -332,6 +331,8 @@ describe("Demo", () => {
     cy.clearDefferdownpayment();
     cy.clearDccGapValue();
     cy.wait(2000);
+    cy.defferedDownPayment(moment().add(10, "days").format("MM/DD/YYYY"), 80);
+    cy.wait(1000);
     cy.installmentAmount("apr", "59.75", "672.24");
     const quotation = quotationDetails[12];
     cy.get("[formcontrolname='tax_rate']").should(
@@ -352,5 +353,11 @@ describe("Demo", () => {
   it("Checking and APR || Installment Amount || Number of Payments by changing financing calculation method", () => {
     cy.installmentAmount("numberOfPayments");
   });
-  it("checking verify screen page", () => {});
+  it("adding new lien holder and finance rate participation aswellas flat rate check", () => {
+    cy.addVendorLienHolder();
+  });
+  it("checking verify screen page", () => {
+    const customer = customerInfos[0];
+    cy.verifyScreen(customer);
+  });
 });

@@ -15,7 +15,7 @@ Cypress.Commands.add(
     cy.contains("Vehicle Service Contract(VSC)").should("be.visible");
     //service contract
 
-    cy.get("select[formcontrolname='vendor_id']").select("Dc company");
+    cy.get("select[formcontrolname='vendor_id']").select("Mazie");
     cy.get("input[formcontrolname = 'dealer_mark_up']").type(dealerMarkup);
     cy.get("input[formcontrolname = 'cogs']").type(cogs);
     cy.get("button").contains(" SAVE & CONTINUE ").click();
