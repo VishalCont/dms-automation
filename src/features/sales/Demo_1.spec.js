@@ -3,6 +3,7 @@ var moment = require("moment");
 const { ENV } = require("../../utils/constants");
 var customerInfos = require(`../../data/customer_info.${ENV}.json`);
 var quotationDetails = require(`../../data/quotation_detail.json`);
+var verifyScreenCases = require(`../../utils/values_for_cases.js`);
 var tradeInDetails = require(`../../data/trade_in_details.json`);
 describe("Demo", () => {
   beforeEach(() => {
@@ -75,9 +76,9 @@ describe("Demo", () => {
     // );
   });
   it("Test", () => {
-    cy.installmentAmount("numberOfPayments");
-    const customer = customerInfos[0];
-    cy.verifyScreen(customer);
+    //cy.installmentAmount("apr", "59.75", "672.24");
+    // const customer = verifyScreenCases.verifyScreen.case1;
+    // cy.verifyScreen(customer);
   });
   it("Checking Sales Price,sales Tax, Other by adding downPayment", () => {
     cy.clearDccGapValue();
@@ -353,11 +354,11 @@ describe("Demo", () => {
   it("Checking and APR || Installment Amount || Number of Payments by changing financing calculation method", () => {
     cy.installmentAmount("numberOfPayments");
   });
-  it("adding new lien holder and finance rate participation aswellas flat rate check", () => {
+  it("adding new lien holder and finance rate participation as well as flat rate check", () => {
     cy.addVendorLienHolder();
   });
   it("checking verify screen page", () => {
-    const customer = customerInfos[0];
+    const customer = quotationCases.testCase1;
     cy.verifyScreen(customer);
   });
 });
