@@ -1,11 +1,15 @@
 import cypress = require("cypress");
 import { defferedDownPayment } from "./deal_builder/differed_downpayment.command";
 import { installmentAmount } from "./deal_builder/installment_amount_validation.command";
-import { ICustomer, lookupExitingCustomer } from "./deal_builder/lookup_existing_customer.command";
+import {
+  ICustomer,
+  lookupExitingCustomer,
+} from "./deal_builder/lookup_existing_customer.command";
 import { login } from "./login.command";
-import {defSalesTax} from"./deal_builder/deferred_sales_tax.command"
+import { defSalesTax } from "./deal_builder/deferred_sales_tax.command";
 import { changeSaleDate } from "./deal_builder/change_sale_date.command";
-import{ VCustomer, verifyScreen } from "./deal_builder/verify_screen.command"
+import { VData, verifyScreen } from "./deal_builder/verify_screen.command";
+import { customerData, newCustomer } from "./deal_builder/new_customer.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -39,11 +43,20 @@ declare global {
        */
       login: (a?: string, b?: string) => void;
       lookupExitingCustomer: (customer: ICustomer) => void;
-      defferedDownPayment: (differedDate: Date, differedDownPaymentAmount: number) => void;
-      installmentAmount: (paymentCalculationType: "numberOfPayments"|"apr"|"totalAmountMonthly") => void //noOfPayments or apr or totalAmountMonthly;
-      defSalesTax: (taxInclude: "yes"|"no") => void;
-      changeSaleDate: (date:Date,startDate:string) => void;
-      verifyScreen: (customer: VCustomer) => void;
+      defferedDownPayment: (
+        differedDate: Date,
+        differedDownPaymentAmount: number
+      ) => void;
+      installmentAmount: (
+        paymentCalculationType:
+          | "numberOfPayments"
+          | "apr"
+          | "totalAmountMonthly"
+      ) => void; //noOfPayments or apr or totalAmountMonthly;
+      defSalesTax: (taxInclude: "yes" | "no") => void;
+      changeSaleDate: (date: Date, startDate: string) => void;
+      verifyScreen: (customer: VData) => void;
+      newCustomer: (customer: customerData) => void;
     }
   }
 }
@@ -56,3 +69,4 @@ Cypress.Commands.add("installmentAmount", installmentAmount);
 Cypress.Commands.add("defSalesTax", defSalesTax);
 Cypress.Commands.add("changeSaleDate", changeSaleDate);
 Cypress.Commands.add("verifyScreen", verifyScreen);
+Cypress.Commands.add("newCustomer", newCustomer);

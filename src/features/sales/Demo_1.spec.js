@@ -18,6 +18,7 @@ describe("Demo", () => {
     cy.login();
     const customer = customerInfos[0];
     const quotation = quotationDetails[5];
+    //cy.newCustomer();
     cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
     cy.wait(10000);
@@ -76,7 +77,7 @@ describe("Demo", () => {
     // );
   });
   it("Test", () => {
-    //cy.installmentAmount("apr", "59.75", "672.24");
+    // cy.installmentAmount("apr", "26.99", "672.24");
     // const customer = verifyScreenCases.verifyScreen.case1;
     // cy.verifyScreen(customer);
   });
@@ -358,7 +359,7 @@ describe("Demo", () => {
     cy.addVendorLienHolder();
   });
   it("checking verify screen page", () => {
-    const customer = quotationCases.testCase1;
+    const customer = verifyScreenCases.verifyScreen.case1;
     cy.verifyScreen(customer);
   });
 });
