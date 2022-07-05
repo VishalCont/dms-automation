@@ -18,7 +18,6 @@ describe("Demo", () => {
     cy.login();
     const customer = customerInfos[0];
     const quotation = quotationDetails[5];
-    //cy.newCustomer();
     cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
     cy.wait(10000);
@@ -37,13 +36,13 @@ describe("Demo", () => {
     cy.get("body").click();
     cy.log(
       "salesprice value: " +
-        quotation.vehicleSalePrice +
-        "salestax value: " +
-        quotation.salesTax +
-        "govtfeee vlaue is :" +
-        quotation.totalOfGovernmentFees +
-        "Otherchargesvalue : " +
-        quotation.otherCharges
+      quotation.vehicleSalePrice +
+      "salestax value: " +
+      quotation.salesTax +
+      "govtfeee vlaue is :" +
+      quotation.totalOfGovernmentFees +
+      "Otherchargesvalue : " +
+      quotation.otherCharges
     );
 
     cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
@@ -77,7 +76,7 @@ describe("Demo", () => {
     // );
   });
   it("Test", () => {
-    // cy.installmentAmount("apr", "26.99", "672.24");
+    //cy.installmentAmount("apr", "59.75", "672.24");
     // const customer = verifyScreenCases.verifyScreen.case1;
     // cy.verifyScreen(customer);
   });
@@ -359,7 +358,7 @@ describe("Demo", () => {
     cy.addVendorLienHolder();
   });
   it("checking verify screen page", () => {
-    const customer = verifyScreenCases.verifyScreen.case1;
+    const customer = quotationCases.testCase1;
     cy.verifyScreen(customer);
   });
 });
