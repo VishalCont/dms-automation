@@ -26,7 +26,11 @@ export const lookupExitingCustomer = (customer: ICustomer) => {
       var valueOfHomePhone = homePhoneField.val() as string;
       cy.get("[formcontrolname='mobile_phone']").then((mobilePhoneField) => {
         var valueOfMobilePhone = mobilePhoneField.val() as string;
-        if (valueOfWorkPhone?.trim().length === 12 || valueOfHomePhone.trim().length === 12 || valueOfMobilePhone.trim().length === 12) {
+        if (
+          valueOfWorkPhone?.trim().length === 12 ||
+          valueOfHomePhone.trim().length === 12 ||
+          valueOfMobilePhone.trim().length === 12
+        ) {
           cy.log("At least one field has some value");
         } else {
           throw new Error("Invalid");
