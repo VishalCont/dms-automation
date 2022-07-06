@@ -10,6 +10,7 @@ import { defSalesTax } from "./deal_builder/deferred_sales_tax.command";
 import { changeSaleDate } from "./deal_builder/change_sale_date.command";
 import { VData, verifyScreen } from "./deal_builder/verify_screen.command";
 import { customerData, newCustomer } from "./deal_builder/new_customer.command";
+import { startSale } from "./deal_builder/start_a_sale.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -57,6 +58,7 @@ declare global {
       changeSaleDate: (date: Date, startDate: string) => void;
       verifyScreen: (customer: VData) => void;
       newCustomer: (customer: customerData) => void;
+      startSale: () => void;
     }
   }
 }
@@ -70,3 +72,4 @@ Cypress.Commands.add("defSalesTax", defSalesTax);
 Cypress.Commands.add("changeSaleDate", changeSaleDate);
 Cypress.Commands.add("verifyScreen", verifyScreen);
 Cypress.Commands.add("newCustomer", newCustomer);
+Cypress.Commands.add("startSale", startSale);

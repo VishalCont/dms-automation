@@ -1,4 +1,5 @@
 /// <reference types ="Cypress"/>
+import { faker, fakerUS } from "@faker-js/faker";
 var moment = require("moment");
 const { ENV } = require("../../utils/constants");
 var customerInfos = require(`../../data/customer_info.${ENV}.json`);
@@ -16,9 +17,19 @@ describe("Demo", () => {
   it("Checking Sales Price,sales Tax, Other by adding Dcc/gap", () => {
     //cy.log(moment().add(10, "days").format("MM/DD/YYYY"));
     cy.login();
-    const customer = customerInfos[0];
+    cy.startSale();
+    const customer = {
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      work_phone: faker.phone.phoneNumber(),
+      street: faker.address.street(),
+      zipcode: "75901",
+    };
+    cy.log(customer);
+    cy.newCustomer(customer);
+    // const customer = customerInfos[0];
     const quotation = quotationDetails[5];
-    cy.lookupExitingCustomer(customer);
+    // cy.lookupExitingCustomer(customer);
     cy.selectVehicle();
     cy.wait(10000);
     cy.get("input[formcontrolname='paymentRadios']").each(
@@ -36,13 +47,13 @@ describe("Demo", () => {
     cy.get("body").click();
     cy.log(
       "salesprice value: " +
-      quotation.vehicleSalePrice +
-      "salestax value: " +
-      quotation.salesTax +
-      "govtfeee vlaue is :" +
-      quotation.totalOfGovernmentFees +
-      "Otherchargesvalue : " +
-      quotation.otherCharges
+        quotation.vehicleSalePrice +
+        "salestax value: " +
+        quotation.salesTax +
+        "govtfeee vlaue is :" +
+        quotation.totalOfGovernmentFees +
+        "Otherchargesvalue : " +
+        quotation.otherCharges
     );
 
     cy.existingVendorForDCCAndGAP("DCC", "Dario", "200", "230");
