@@ -1,0 +1,11 @@
+[
+    {
+    "feeDealer": 100,
+    "buyRateFromBank": 10,
+    "bankPercentHoldInReserve": 50
+    },
+    {
+    "amountEarned": 1200,
+    "feeDealer": 100        
+    }
+]
