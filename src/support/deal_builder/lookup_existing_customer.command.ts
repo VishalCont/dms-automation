@@ -1,3 +1,5 @@
+import { API_URL } from "../../utils/constants";
+
 export interface ICustomer {
   first_name: string;
   last_name: string;
@@ -26,7 +28,11 @@ export const lookupExitingCustomer = (customer: ICustomer) => {
       var valueOfHomePhone = homePhoneField.val() as string;
       cy.get("[formcontrolname='mobile_phone']").then((mobilePhoneField) => {
         var valueOfMobilePhone = mobilePhoneField.val() as string;
-        if (valueOfWorkPhone?.trim().length === 12 || valueOfHomePhone.trim().length === 12 || valueOfMobilePhone.trim().length === 12) {
+        if (
+          valueOfWorkPhone?.trim().length === 12 ||
+          valueOfHomePhone.trim().length === 12 ||
+          valueOfMobilePhone.trim().length === 12
+        ) {
           cy.log("At least one field has some value");
         } else {
           throw new Error("Invalid");
@@ -42,5 +48,15 @@ export const lookupExitingCustomer = (customer: ICustomer) => {
   cy.get("[formcontrolname='street']").invoke("val").should("not.be.empty");
   cy.get("[formcontrolname='zipcode']").invoke("val").should("not.be.empty");
   cy.get("[formcontrolname='county']").invoke("val").should("not.be.empty");
+  cy.intercept(`${API_URL}/crm/geo/city/*`).as("custWait");
+  //Click on Next button
+  cy.get("app-customer-info button").contains("NEXT").click();
+  //assertion for popup
+  cy.wait("@custWait");
+  cy.contains(" Verify Customer Information").should("be.visible");
   // TODO Fill up rest fields
+  cy.intercept(`${API_URL}/inventory/list?staged=staged`).as("vehicleList");
+  cy.get("modal-container button").contains("Confirm").click();
+  //Wait
+  cy.wait("@vehicleList");
 };
