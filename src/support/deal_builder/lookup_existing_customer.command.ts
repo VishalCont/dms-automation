@@ -52,7 +52,7 @@ export const lookupExitingCustomer = (customer: ICustomer) => {
   //Click on Next button
   cy.get("app-customer-info button").contains("NEXT").click();
   //assertion for popup
-  cy.wait("@custWait");
+  //cy.wait("@custWait");
   cy.contains(" Verify Customer Information").should("be.visible");
   // TODO Fill up rest fields
   cy.intercept(`${API_URL}/inventory/list?staged=staged`).as("vehicleList");
