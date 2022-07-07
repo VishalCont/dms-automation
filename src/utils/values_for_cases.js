@@ -36,12 +36,12 @@ export const verifyScreen = {
     totalOfGovernmentFees: "288.50",
     downpayment: 10913.5,
     apr: "24.82(%)",
-    financeCharge: "($)2,335.09",
-    amountFinanced: "($)10,833.50",
-    totalOfPayments: "($)13,168.59",
-    totalSalePrice: "($)13,168.59",
-    noOfPayments: "19",
-    installmentAmount: "($)666.92",
+    financeCharge: "($)6,695.11",
+    amountFinanced: "($)16,468.50",
+    totalOfPayments: "($)23,163.61",
+    totalSalePrice: "($)23,163.61",
+    noOfPayments: "35",
+    installmentAmount: "($)653.22",
   },
 };
 

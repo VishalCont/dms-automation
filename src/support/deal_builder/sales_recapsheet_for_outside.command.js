@@ -6,6 +6,13 @@
 Cypress.Commands.add("salesRecapSheet", (salesRecapSheet, randomFirstName, amountEarned) => {
 //const customer = customerInfos[0]
 //cy.verifyScreen(customer);
+
+//ignore comma
+// var number = "1,200.00";
+// var stringValue = parseFloat(number.replace(/,/g, ""));
+
+// console.log(stringValue, "using String");
+
 cy.wait(3000);
 cy.get('.modal-body > :nth-child(2) > .btn-ddms-orange').click();
 cy.wait(3000);
