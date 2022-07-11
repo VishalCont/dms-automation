@@ -1,10 +1,6 @@
 /// <reference types ="Cypress"/>
 
-import { faker } from '@faker-js/faker';
-
-var randomFirstName = faker.name.firstName();
-
-Cypress.Commands.add("addVendorLienHolder", () => {
+Cypress.Commands.add("flatRateLienHolder", (randomFirstName, amountEarned, feeDealer) => {
 
     //choosing the Outside finance
     cy.get("input[formcontrolname='paymentRadios']").each(
@@ -21,22 +17,20 @@ Cypress.Commands.add("addVendorLienHolder", () => {
     cy.wait(3000);
     cy.log("company name from faker: " + randomFirstName);
     cy.get(".modal-content input[formcontrolname='company_name']").type(`${randomFirstName}`);
-
     cy.get("button").contains("SAVE").should("be.visible").should("be.enabled").click();
-    cy.wait(3000)
-    //finance charge rate button
-    cy.get("button").contains("Finance Charge Rate Participation").should("be.visible").click();
-    cy.get("input[formcontrolname='feeDealer']").type("100");
-    cy.get("input[formcontrolname='buyRateFromBank']").type("10");
-    cy.get("input[formcontrolname='bankPercentHoldInReserve']").type("50"); 
-    cy.wait(3000);
-    cy.get('.modal-header').click();
-    //flat rate
+    cy.wait(2000)
+    cy.get("button").contains("Finance Charge Rate Participation").should("be.visible").click();  
+//flat rate
     cy.get('[type="checkbox"]').check({ force: true });
     cy.wait(3000);
-    cy.get("[formcontrolname='amountEarned']")
-      .clear()
-      .type("1200");
+    cy.get("input[formcontrolname = 'amountEarned']").clear().type(
+        amountEarned
+      );
+    cy.get("input[formcontrolname = 'feeDealer']").clear().type(
+        feeDealer
+      );
+      cy.get("input[formcontrolname = 'amountEarned']").invoke("val").should("not.be.empty");
+      cy.get("input[formcontrolname = 'feeDealer']").invoke("val").should("not.be.empty");
     cy.get("button").contains("Confirm").should("be.visible").click();
-   
+    
 })

@@ -30,9 +30,11 @@ require("./deal_builder/clear_downpayment.command");
 require("./deal_builder/clear_defferdownpayment.command");
 require("./deal_builder/change_sale_type.command");
 //require("./deal_builder/otherCharges_selection.command");
-require("./deal_builder/add_vendor_lienholder.command");
+require("./deal_builder/buyratefrombank_lienholder.command");
+require("./deal_builder/flatrate_lienholder.command");
 require("./deal_builder/financeCharge_rate.command");
 require("./deal_builder/local_storage_memory.command");
+require("./deal_builder/sales_recapsheet_for_outside.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
