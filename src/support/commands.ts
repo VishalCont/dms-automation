@@ -11,6 +11,16 @@ import { changeSaleDate } from "./deal_builder/change_sale_date.command";
 import { VData, verifyScreen } from "./deal_builder/verify_screen.command";
 import { customerData, newCustomer } from "./deal_builder/new_customer.command";
 import { startSale } from "./deal_builder/start_a_sale.command";
+import { verifyCustomerData } from "./deal_builder/verify_customer_details_on_deal_builder.command";
+import {
+  changeSalePrice,
+  salePrice,
+} from "./deal_builder/change_sale_price.command";
+import { makePayment } from "./deal_builder/make_payment.command";
+import { downloadDocument } from "./deal_builder/downloand_all_documents";
+import { completeSale } from "./deal_builder/complete_sale.command";
+import { confirmationAtFinalizeSale } from "./deal_builder/confirmation_to_complete_sale.command";
+import { selectSalesPersons } from "./deal_builder/selecting_sales_person.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -35,6 +45,7 @@ require("./deal_builder/flatrate_lienholder.command");
 require("./deal_builder/financeCharge_rate.command");
 require("./deal_builder/local_storage_memory.command");
 require("./deal_builder/sales_recapsheet_for_outside.command");
+require("./deal_builder/verify_customer_details_on_deal_builder.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
@@ -61,6 +72,13 @@ declare global {
       verifyScreen: (customer: VData) => void;
       newCustomer: (customer: customerData) => void;
       startSale: () => void;
+      verifyCustomerData: (customer: customerData) => void;
+      changeSalePrice: (changeSalePrice1: salePrice) => void;
+      makePayment: (makePaymentData: VData) => void;
+      downloadDocument: () => void;
+      completeSale: () => void;
+      confirmationAtFinalizeSale: () => void;
+      selectSalesPersons: () => void;
     }
   }
 }
@@ -75,3 +93,10 @@ Cypress.Commands.add("changeSaleDate", changeSaleDate);
 Cypress.Commands.add("verifyScreen", verifyScreen);
 Cypress.Commands.add("newCustomer", newCustomer);
 Cypress.Commands.add("startSale", startSale);
+Cypress.Commands.add("verifyCustomerData", verifyCustomerData);
+Cypress.Commands.add("changeSalePrice", changeSalePrice);
+Cypress.Commands.add("makePayment", makePayment);
+Cypress.Commands.add("downloadDocument", downloadDocument);
+Cypress.Commands.add("completeSale", completeSale);
+Cypress.Commands.add("confirmationAtFinalizeSale", confirmationAtFinalizeSale);
+Cypress.Commands.add("selectSalesPersons", selectSalesPersons);

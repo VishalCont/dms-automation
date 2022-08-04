@@ -93,13 +93,7 @@ describe("Demo", () => {
     //   quotation.totalOfGovernmentFees
     // );
   });
-
-  it("Test", () => {
-    cy.installmentAmount("apr", "59.75", "672.24");
-    const customer = verifyScreenCases.verifyScreen.case1;
-    cy.verifyScreen(customer);
-  });
-
+  it("Test", () => {});
   it("Checking Sales Price,sales Tax, Other by adding downPayment", () => {
     cy.clearDccGapValue();
     const quotation1 = quotationDetails[4];
@@ -415,7 +409,7 @@ describe("Demo", () => {
     // var stringValue = parseFloat(number.replace(/,/g, ""));
 
     // console.log(stringValue, "using String");
-    
+
     cy.log(randomName);
     cy.flatRateLienHolder(randomName, financeQuotation2.amountEarned, 100);
     cy.wait(2000);
