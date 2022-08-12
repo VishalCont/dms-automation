@@ -21,6 +21,7 @@ import { downloadDocument } from "./deal_builder/downloand_all_documents";
 import { completeSale } from "./deal_builder/complete_sale.command";
 import { confirmationAtFinalizeSale } from "./deal_builder/confirmation_to_complete_sale.command";
 import { selectSalesPersons } from "./deal_builder/selecting_sales_person.command";
+import { TData, tradeInDetails } from "./deal_builder/tradeInDetails.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -79,6 +80,7 @@ declare global {
       completeSale: () => void;
       confirmationAtFinalizeSale: () => void;
       selectSalesPersons: () => void;
+      tradeInDetails: (tradeInDetails: TData) => void;
     }
   }
 }
@@ -100,3 +102,4 @@ Cypress.Commands.add("downloadDocument", downloadDocument);
 Cypress.Commands.add("completeSale", completeSale);
 Cypress.Commands.add("confirmationAtFinalizeSale", confirmationAtFinalizeSale);
 Cypress.Commands.add("selectSalesPersons", selectSalesPersons);
+Cypress.Commands.add("tradeInDetails", tradeInDetails);
