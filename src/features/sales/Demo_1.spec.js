@@ -15,6 +15,7 @@ var quotationDetails = require(`../../data/quotation_detail.json`);
 var financeQuotationDetails = require(`../../data/fin_chrg_rt_prtcptn_details.json`);
 var verifyScreenCases = require(`../../utils/values_for_cases.js`);
 var tradeInDetails = require(`../../data/trade_in_details.json`);
+var dealWorksheetCases = require(`../../utils/values_for_cases`);
 describe("Demo", () => {
   beforeEach(() => {
     cy.restoreLocalStorageCache();
@@ -420,4 +421,41 @@ describe("Demo", () => {
     //cy.get("input[formcontrolname='amountEarned']").should(financeQuotation2.amountEarned)
     //cy.get("input[formcontrolname='feeDealer']").should(financeQuotation2.feeDealer)
   });
+//deal work sheet
+  it("deal worksheet", () =>{
+    const quotation = quotationDetails[15];
+    cy.wait(4000);
+    cy.changeSaleType(1);
+    cy.wait(2000);
+    cy.get("[formcontrolname='sale_price']")
+  .clear()
+  .type(quotation.vehicleSalePrice);
+  cy.get("body").click();
+  cy.get("[formcontrolname='tax_rate']").should(
+       "have.value",
+        quotation.salesTax
+      );
+     //check other charges
+   cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
+         "have.value",
+        quotation.otherCharges
+       );
+        //sales price
+    cy.get("[formcontrolname='quotation_price']").should(
+      "have.value",
+      quotation.salesPrice
+    );
+     cy.wait(3000)
+     // verify screen
+  //    const customer = verifyScreenCases.verifyScreen.case5;
+  // cy.verifyScreen(customer);
+
+
+  
+  const dealSheet = dealWorksheetCases.dealWorksheet.case2;
+  cy.dealWorksheet(dealSheet.salesPrice, dealSheet.documentaryFee, dealSheet.salesTax, 
+       dealSheet.governmentFee, dealSheet.serviceContract, dealSheet.dccGap, dealSheet.inventoryTax, dealSheet.totalSalesPrice, 
+      dealSheet.cashDownpayment, dealSheet.amountFinanced, dealSheet.deferredDownpayment, dealSheet.financing, dealSheet.total, "outside");
+     })
+
 });
