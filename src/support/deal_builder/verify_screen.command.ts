@@ -11,9 +11,11 @@ export interface VData {
   installmentAmount: string;
   bhphOrOutsideFinance: boolean;
   finalizeSale: boolean;
+  tradeInContains: boolean;
 }
 import { API_URL } from "../../utils/constants";
 import moment = require("moment");
+import { isInteger } from "cypress/types/lodash/fp";
 export const verifyScreen = (verifyScreenData: VData) => {
   if (verifyScreenData == null)
     throw new Error("There is no Customer Details sent");
@@ -53,6 +55,27 @@ export const verifyScreen = (verifyScreenData: VData) => {
     cy.get(".payments-section-details > div:nth-child(2) div:nth-child(3) div")
       .should("contain", " monthly ")
       .should("contain", moment().add(14, "days").format("MM-DD-YYYY"));
+    if (verifyScreenData.tradeInContains === true) {
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(1) div"
+      ).should("have.text", "");
+
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(2) div"
+      ).should("have.text", String);
+
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(3) div"
+      ).should("have.text", String);
+
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(4) div"
+      ).should("have.text", String);
+
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(5) div"
+      ).should("have.text", String);
+    }
   }
   //cy.intercept(`${ENV}/sales/*`).as("VerifyScreenWait");
   cy.intercept({

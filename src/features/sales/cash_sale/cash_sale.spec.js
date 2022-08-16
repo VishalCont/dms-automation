@@ -1,5 +1,6 @@
 /// <reference types ="Cypress"/>
 import { faker } from "@faker-js/faker";
+import { API_URL } from "../../../utils/constants";
 
 let customer = {
   first_name: faker.name.firstName().replace("'", ""),
@@ -20,6 +21,12 @@ let customer = {
   totalOfPayments: "25,715.60",
   noOfPayments: "35",
   installmentAmount: "725.57",
+  tradeInContains: false,
+  trade_in_vehicle_year: "2000",
+  trade_in_vehicle_VIN: "5TFUM5F12AX012971",
+  trade_in_vehicle_license_plate: "N/A",
+  trade_in_vehicle_make: " ",
+  trade_in_vehicle_model: " ",
 };
 var tradeInDetails = require(`../../../data/trade_in_details.json`);
 describe("cash sale", () => {
@@ -59,8 +66,49 @@ describe("cash sale", () => {
       tradeQuotation.cashPaidToBuyer,
       tradeQuotation.actualCashValue
     );
+    cy.wait(2000);
+    cy.get("button#trade-in").first().click();
+    cy.contains("Vehicle Valuations").should("be.visible");
+
+    cy.get("input[formcontrolname = 'year']")
+      .invoke("val")
+      .then((vehicleYear) => {
+        customer.trade_in_vehicle_year = vehicleYear;
+        cy.log(customer.trade_in_vehicle_year);
+      });
+    // cy.get("input[formcontrolname = 'make']")
+    //   .invoke("val")
+    //   .then((vehicleMake) => {
+    //     customer.trade_in_vehicle_year = vehicleMake;
+    //     cy.log(customer.trade_in_vehicle_make);
+    //   });
+    // cy.get("input[formcontrolname = 'model']")
+    //   .invoke("val")
+    //   .then((vehicleModel) => {
+    //     customer.trade_in_vehicle_year = vehicleModel;
+    //     cy.log(customer.trade_in_vehicle_model);
+    //   });
+    cy.get("input[formcontrolname = 'vin']")
+      .invoke("val")
+      .then((vehicleVIN) => {
+        customer.trade_in_vehicle_VIN = vehicleVIN;
+        cy.log(customer.trade_in_vehicle_VIN);
+      });
+    cy.get("input[formcontrolname = 'license_plate']")
+      .invoke("val")
+      .then((vehicleLicensePlate) => {
+        customer.trade_in_vehicle_license_plate = vehicleLicensePlate;
+        //var trade = customer.trade_in_vehicle_license_plate
+        cy.log(customer.trade_in_vehicle_license_plate);
+      });
+
+    cy.intercept(`${API_URL}/sales/sales_trade_in/*`).as("tradeInWait");
+    cy.get("button").contains("SAVE & CONTINUE").click();
+    cy.wait("@tradeInWait");
   });
+  console.log(customer.trade_in_vehicle_license_plate);
   it("Adding DCC/Gap to Sale", () => {
+    cy.log(customer.trade_in_vehicle_year);
     cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
   });
   it("Adding Service Contract to sale ", () => {
@@ -101,13 +149,14 @@ describe("cash sale", () => {
         // const customer = verifyScreenCase.verifyScreen.case1
         customer.full_name = `${customer.first_name} ${customer.last_name}`;
         customer.bhphOrOutsideFinance = true;
+        customer.tradeInContains = true;
         cy.verifyScreen(customer);
       });
       it("Payment at Finalize sale", () => {
         cy.makePayment(customer);
       });
       it("Download All Documents", () => {
-        cy.downloadDocument();
+        // cy.downloadDocument();
       });
       it("Complete Sale", () => {
         cy.completeSale();
@@ -116,6 +165,7 @@ describe("cash sale", () => {
         customer.full_name = `${customer.first_name} ${customer.last_name}`;
         customer.bhphOrOutsideFinance = true;
         customer.finalizeSale = false;
+        customer.tradeInContains = true;
         cy.verifyScreen(customer);
       });
       it("Confirmation of sale", () => {
