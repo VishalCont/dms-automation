@@ -46,6 +46,7 @@ require("./deal_builder/financeCharge_rate.command");
 require("./deal_builder/local_storage_memory.command");
 require("./deal_builder/sales_recapsheet_for_outside.command");
 require("./deal_builder/verify_customer_details_on_deal_builder.command");
+require("./deal_builder/commission_recap.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
