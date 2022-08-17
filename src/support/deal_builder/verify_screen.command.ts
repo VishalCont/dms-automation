@@ -12,6 +12,9 @@ export interface VData {
   bhphOrOutsideFinance: boolean;
   finalizeSale: boolean;
   tradeInContains: boolean;
+  tradeInVehicleYear: string;
+  tradeInVehicleVIN: string;
+  tradeInVehiclelicensePlate: string;
 }
 import { API_URL } from "../../utils/constants";
 import moment = require("moment");
@@ -58,23 +61,26 @@ export const verifyScreen = (verifyScreenData: VData) => {
     if (verifyScreenData.tradeInContains === true) {
       cy.get(
         ".row.no-border.tradein-section.ng-star-inserted :nth-child(1) div"
-      ).should("have.text", "");
+      ).should("have.text", `Year: ${verifyScreenData.tradeInVehicleYear} `);
 
-      cy.get(
-        ".row.no-border.tradein-section.ng-star-inserted :nth-child(2) div"
-      ).should("have.text", String);
+      // cy.get(
+      //   ".row.no-border.tradein-section.ng-star-inserted :nth-child(2) div"
+      // ).should("have.text", `Make: ${verifyScreenData.tradeInvehicleMake}`);
 
-      cy.get(
-        ".row.no-border.tradein-section.ng-star-inserted :nth-child(3) div"
-      ).should("have.text", String);
+      // cy.get(
+      //   ".row.no-border.tradein-section.ng-star-inserted :nth-child(3) div"
+      // ).should("have.text", String);
 
       cy.get(
         ".row.no-border.tradein-section.ng-star-inserted :nth-child(4) div"
-      ).should("have.text", String);
+      ).should("have.text", `VIN: ${verifyScreenData.tradeInVehicleVIN} `);
 
       cy.get(
         ".row.no-border.tradein-section.ng-star-inserted :nth-child(5) div"
-      ).should("have.text", String);
+      ).should(
+        "have.text",
+        `License No.: ${verifyScreenData.tradeInVehiclelicensePlate}`
+      );
     }
   }
   //cy.intercept(`${ENV}/sales/*`).as("VerifyScreenWait");

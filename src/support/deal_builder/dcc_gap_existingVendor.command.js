@@ -45,5 +45,6 @@ Cypress.Commands.add(
     }
     cy.wait("@dccWait");
     cy.wait("@dccWait");
+    cy.wait(4000);
   }
 );

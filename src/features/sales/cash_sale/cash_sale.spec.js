@@ -1,6 +1,7 @@
 /// <reference types ="Cypress"/>
 import { faker } from "@faker-js/faker";
 import { API_URL } from "../../../utils/constants";
+var moment = require("moment");
 
 let customer = {
   first_name: faker.name.firstName().replace("'", ""),
@@ -11,22 +12,24 @@ let customer = {
   full_name: "XYZ",
   bhphOrOutsideFinance: false,
   vehicle_price: "10000.00",
-  totalSalePrice: "25,715.60",
+  totalSalePrice: "25,676.46",
   finalizeSale: true,
   saleType: "BHPH",
   typeOfSale: 2,
   apr: "24.82",
-  financeCharge: "7,423.10",
+  financeCharge: "7,383.96",
   amountFinanced: "18,292.50",
-  totalOfPayments: "25,715.60",
+  totalOfPayments: "25,676.46",
   noOfPayments: "35",
   installmentAmount: "725.57",
   tradeInContains: false,
-  trade_in_vehicle_year: "2000",
-  trade_in_vehicle_VIN: "5TFUM5F12AX012971",
-  trade_in_vehicle_license_plate: "N/A",
+  tradeInVehicleYear: "2000",
+  tradeInVehicleVIN: "5TFUM5F12AX012971",
+  tradeInVehiclelicensePlate: "N/A",
   trade_in_vehicle_make: " ",
   trade_in_vehicle_model: " ",
+  differedDate: moment().add(10, "days").format("MM/DD/YYYY"),
+  differedDownPaymentAmount: "20",
 };
 var tradeInDetails = require(`../../../data/trade_in_details.json`);
 describe("cash sale", () => {
@@ -37,7 +40,7 @@ describe("cash sale", () => {
     cy.saveLocalStorageCache();
   });
   it("Logging in to DMS Dealer Account", () => {
-    cy.login("dalmia", "Admin@123");
+    cy.login();
   });
   it("Starting a Sale", () => {
     cy.wait(2000);
@@ -73,8 +76,8 @@ describe("cash sale", () => {
     cy.get("input[formcontrolname = 'year']")
       .invoke("val")
       .then((vehicleYear) => {
-        customer.trade_in_vehicle_year = vehicleYear;
-        cy.log(customer.trade_in_vehicle_year);
+        customer.tradeInVehicleYear = vehicleYear;
+        cy.log(customer.tradeInVehicleYear);
       });
     // cy.get("input[formcontrolname = 'make']")
     //   .invoke("val")
@@ -91,22 +94,21 @@ describe("cash sale", () => {
     cy.get("input[formcontrolname = 'vin']")
       .invoke("val")
       .then((vehicleVIN) => {
-        customer.trade_in_vehicle_VIN = vehicleVIN;
-        cy.log(customer.trade_in_vehicle_VIN);
+        customer.tradeInVehicleVIN = vehicleVIN;
+        cy.log(customer.tradeInVehicleVIN);
       });
     cy.get("input[formcontrolname = 'license_plate']")
       .invoke("val")
       .then((vehicleLicensePlate) => {
-        customer.trade_in_vehicle_license_plate = vehicleLicensePlate;
+        customer.tradeInVehicleVINlicensePlate = vehicleLicensePlate;
         //var trade = customer.trade_in_vehicle_license_plate
-        cy.log(customer.trade_in_vehicle_license_plate);
+        cy.log(customer.tradeInVehicleVINlicensePlate);
       });
 
     cy.intercept(`${API_URL}/sales/sales_trade_in/*`).as("tradeInWait");
     cy.get("button").contains("SAVE & CONTINUE").click();
     cy.wait("@tradeInWait");
   });
-  console.log(customer.trade_in_vehicle_license_plate);
   it("Adding DCC/Gap to Sale", () => {
     cy.log(customer.trade_in_vehicle_year);
     cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
@@ -144,6 +146,12 @@ describe("cash sale", () => {
       it("Change Sale type to BHPH", () => {
         cy.wait(1000);
         cy.changeSaleType(customer.typeOfSale);
+      });
+      it("Adding Def down payment", () => {
+        cy.defferedDownPayment(
+          customer.differedDate,
+          customer.differedDownPaymentAmount
+        );
       });
       it("Verify Screen for BHPH Sale", () => {
         // const customer = verifyScreenCase.verifyScreen.case1

@@ -6,8 +6,9 @@ Cypress.Commands.add(
   "existingVendorForServiceContract",
   (serviceVendor, vendor, dealerMarkup, cogs) => {
     //Service contract button for existing vendor
+    cy.wait(1000);
     cy.get("button").contains("Service Contract").click();
-    cy.wait(2000);
+    cy.wait(1000);
     //cy.get(".modal-content  button").contains(" CANCEL ").click();
     cy.get(
       `.modal-content input[formcontrolname='warrantyType'][value='${serviceVendor}']`
