@@ -118,26 +118,16 @@ describe("cash sale", () => {
   });
   switch (customer.saleType) {
     case "cash":
-      it("Verify Screen for Cash Sale", () => {
+      it("complete a Cash Sale by making payment and dowmloading the Docs", () => {
         // const customer = verifyScreenCase.verifyScreen.case1
         customer.full_name = `${customer.first_name} ${customer.last_name}`;
         cy.verifyScreen(customer);
-      });
-      it("Payment at Finalize sale", () => {
         cy.makePayment(customer);
-      });
-      it("Download All Documents", () => {
         cy.downloadDocument();
-      });
-      it("Complete Sale", () => {
         cy.completeSale();
-      });
-      it("Verify Screen after payment", () => {
-        customer.full_name = `${customer.first_name} ${customer.last_name}`;
+        //customer.full_name = `${customer.first_name} ${customer.last_name}`;
         customer.finalizeSale = false;
         cy.verifyScreen(customer);
-      });
-      it("Confirmation of sale", () => {
         cy.confirmationAtFinalizeSale();
         cy.get(".sales-home").contains("Deal Activity").should("be.visible");
       });
@@ -147,39 +137,24 @@ describe("cash sale", () => {
         cy.wait(1000);
         cy.changeSaleType(customer.typeOfSale);
       });
-      it("Adding Def down payment", () => {
-        cy.defferedDownPayment(
-          customer.differedDate,
-          customer.differedDownPaymentAmount
-        );
-      });
-      it("Verify Screen for BHPH Sale", () => {
+      it("complete a BHPH Sale by making payment and dowmloading the Docs", () => {
         // const customer = verifyScreenCase.verifyScreen.case1
         customer.full_name = `${customer.first_name} ${customer.last_name}`;
         customer.bhphOrOutsideFinance = true;
         customer.tradeInContains = true;
         cy.verifyScreen(customer);
-      });
-      it("Payment at Finalize sale", () => {
         cy.makePayment(customer);
-      });
-      it("Download All Documents", () => {
-        // cy.downloadDocument();
-      });
-      it("Complete Sale", () => {
+        cy.downloadDocument();
         cy.completeSale();
-      });
-      it("Verify Screen after payment", () => {
-        customer.full_name = `${customer.first_name} ${customer.last_name}`;
-        customer.bhphOrOutsideFinance = true;
+        // customer.full_name = `${customer.first_name} ${customer.last_name}`;
+        // customer.bhphOrOutsideFinance = true;
         customer.finalizeSale = false;
-        customer.tradeInContains = true;
+        // customer.tradeInContains = true;
         cy.verifyScreen(customer);
-      });
-      it("Confirmation of sale", () => {
         cy.confirmationAtFinalizeSale();
         cy.get(".sales-home").contains("Deal Activity").should("be.visible");
       });
+
       break;
     case "OutsideFinance":
       //
