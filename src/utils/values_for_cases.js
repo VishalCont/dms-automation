@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 export const verifyScreen = {
   case1: {
     first_name: "Dorkkke",
@@ -180,3 +181,25 @@ export const dealWorksheet ={
   },
   
 };
+
+export const ofacCheck ={
+  ssn: {
+    ssn_number: "589-17-6824",
+    first_name: "Thammudu",
+    last_name: "Seenu",
+    work_phone: "321-433-6567",
+    phone: faker.phone.number("3##-###-####"),
+    street: faker.address.street(),
+    zipcode: "75001"
+  },
+
+  ofacName: {
+   ssn_number: faker.phone.number("3##-###-###"),
+    first_name: "ZAYDAN",
+    last_name: "MUHAMMAD",
+    work_phone: "321-433-6567",
+    phone: faker.phone.number("3##-###-####"),
+    street: faker.address.street(),
+    zipcode: "75001"
+  }
+}

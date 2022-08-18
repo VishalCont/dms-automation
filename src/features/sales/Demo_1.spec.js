@@ -17,6 +17,7 @@ var verifyScreenCases = require(`../../utils/values_for_cases.js`);
 var customer = require(`../../utils/sales_flow_cases`);
 var tradeInDetails = require(`../../data/trade_in_details.json`);
 var dealWorksheetCases = require(`../../utils/values_for_cases`);
+var ofacCheckCases = require(`../../utils/values_for_cases`);
 describe("Demo", () => {
   beforeEach(() => {
     cy.restoreLocalStorageCache();
@@ -475,5 +476,15 @@ describe("Demo", () => {
       dealSheet.total,
       "outside"
     );
+  });
+  it("OFAC check with SSN and OFAC Name", () => {
+    const ofacValidating = ofacCheckCases.ofacCheck.ssn;
+    cy.log(ofacValidating.ssn_number);
+    cy.ofacCheck(ofacValidating.first_name, 
+      ofacValidating.last_name, 
+      ofacValidating.phone, 
+      ofacValidating.zipcode, 
+      ofacValidating.street, 
+      ofacValidating.ssn_number);
   });
 });
