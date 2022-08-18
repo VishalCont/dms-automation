@@ -23,9 +23,10 @@ export const verifyScreen = (verifyScreenData: VData) => {
   if (verifyScreenData == null)
     throw new Error("There is no Customer Details sent");
   if (verifyScreenData.finalizeSale == true) {
+    cy.get("button").contains("Calculate").click();
+    cy.wait(4000);
     cy.get(`input[type='button'][value='NEXT']`).click();
     //cy.wait("@verifyScreenWait");
-    cy.get("button").contains("Calculate").click();
   }
   if (verifyScreenData.bhphOrOutsideFinance === true) {
     cy.wait(2000);

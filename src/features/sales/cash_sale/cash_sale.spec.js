@@ -1,37 +1,10 @@
 /// <reference types ="Cypress"/>
-import { faker } from "@faker-js/faker";
+
 import { API_URL } from "../../../utils/constants";
 var moment = require("moment");
-
-let customer = {
-  first_name: faker.name.firstName().replace("'", ""),
-  last_name: faker.name.lastName().replace("'", ""),
-  phone: faker.phone.number("3##-###-####"),
-  street: faker.address.street(),
-  zipcode: "75901",
-  full_name: "XYZ",
-  bhphOrOutsideFinance: false,
-  vehicle_price: "10000.00",
-  totalSalePrice: "25,676.46",
-  finalizeSale: true,
-  saleType: "BHPH",
-  typeOfSale: 2,
-  apr: "24.82",
-  financeCharge: "7,383.96",
-  amountFinanced: "18,292.50",
-  totalOfPayments: "25,676.46",
-  noOfPayments: "35",
-  installmentAmount: "725.57",
-  tradeInContains: false,
-  tradeInVehicleYear: "2000",
-  tradeInVehicleVIN: "5TFUM5F12AX012971",
-  tradeInVehiclelicensePlate: "N/A",
-  trade_in_vehicle_make: " ",
-  trade_in_vehicle_model: " ",
-  differedDate: moment().add(10, "days").format("MM/DD/YYYY"),
-  differedDownPaymentAmount: "20",
-};
+var customerDetails = require(`../../../utils/sales_flow_cases`);
 var tradeInDetails = require(`../../../data/trade_in_details.json`);
+let customer = customerDetails.salesValues.BHPH;
 describe("Sales Flow", () => {
   beforeEach(() => {
     cy.restoreLocalStorageCache();
@@ -56,7 +29,7 @@ describe("Sales Flow", () => {
     cy.wait(2000);
   });
   it("Selecting Sales Person", () => {
-    cy.selectSalesPersons();
+    cy.selectSalesPersons(customer);
   });
   it("Verifying Customer Details", () => {
     cy.verifyCustomerData(customer);
@@ -77,7 +50,7 @@ describe("Sales Flow", () => {
       .invoke("val")
       .then((vehicleYear) => {
         customer.tradeInVehicleYear = vehicleYear;
-        cy.log(customer.tradeInVehicleYear);
+        //(customer.tradeInVehicleYear);
       });
     // cy.get("input[formcontrolname = 'make']")
     //   .invoke("val")
@@ -153,7 +126,7 @@ describe("Sales Flow", () => {
         customer.bhphOrOutsideFinance = true;
         customer.tradeInContains = true;
         cy.verifyScreen(customer);
-        cy.makePayment(customer);
+        //cy.makePayment(customer);
         cy.downloadDocument();
         cy.completeSale();
         // customer.full_name = `${customer.first_name} ${customer.last_name}`;
