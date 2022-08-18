@@ -1,0 +1,14 @@
+[
+ {
+    "downPayment":"$1,000.00", 
+    "commissionCalculation":"$1,000.00",
+    "commissionRate":"1.50%",
+    "commission":"$ 150.00",
+    "salesperson":"Stefi - $ 150.00",
+    "profitOnVehicle":"$9,300.00",
+    "otherCalculation":"$9,300.00",
+  "otherCommissionRate":"1.50%",
+  "otherCommission":"$ 150.00",
+  "othersalesperson":"Stefi - $ 150.00"
+ }
+]
