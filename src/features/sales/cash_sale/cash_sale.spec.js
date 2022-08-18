@@ -126,6 +126,7 @@ describe("Sales Flow", () => {
         customer.bhphOrOutsideFinance = true;
         customer.tradeInContains = true;
         cy.verifyScreen(customer);
+        cy.closeFloorPlan();
         //cy.makePayment(customer);
         cy.downloadDocument();
         cy.completeSale();

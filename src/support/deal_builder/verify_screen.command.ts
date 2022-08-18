@@ -18,7 +18,7 @@ export interface VData {
 }
 import { API_URL } from "../../utils/constants";
 import moment = require("moment");
-import { isInteger } from "cypress/types/lodash/fp";
+//import { isInteger } from "cypress/types/lodash/fp";
 export const verifyScreen = (verifyScreenData: VData) => {
   if (verifyScreenData == null)
     throw new Error("There is no Customer Details sent");
@@ -116,6 +116,6 @@ export const verifyScreen = (verifyScreenData: VData) => {
   );
   cy.get("app-verification-screen").contains("OK").click();
   if (verifyScreenData.finalizeSale == true) {
-    cy.wait("@verifyScreenWait");
+    //cy.wait("@verifyScreenWait");
   }
 };
