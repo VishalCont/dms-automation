@@ -22,7 +22,6 @@ import { isInteger } from "cypress/types/lodash/fp";
 export const verifyScreen = (verifyScreenData: VData) => {
   if (verifyScreenData == null)
     throw new Error("There is no Customer Details sent");
-
   if (verifyScreenData.finalizeSale == true) {
     cy.get(`input[type='button'][value='NEXT']`).click();
     //cy.wait("@verifyScreenWait");

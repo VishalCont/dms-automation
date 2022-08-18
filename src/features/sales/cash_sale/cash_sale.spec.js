@@ -32,7 +32,7 @@ let customer = {
   differedDownPaymentAmount: "20",
 };
 var tradeInDetails = require(`../../../data/trade_in_details.json`);
-describe("cash sale", () => {
+describe("Sales Flow", () => {
   beforeEach(() => {
     cy.restoreLocalStorageCache();
   });
@@ -40,7 +40,7 @@ describe("cash sale", () => {
     cy.saveLocalStorageCache();
   });
   it("Logging in to DMS Dealer Account", () => {
-    cy.login();
+    cy.login("clearent", "Admin@123");
   });
   it("Starting a Sale", () => {
     cy.wait(2000);
@@ -56,7 +56,7 @@ describe("cash sale", () => {
     cy.wait(2000);
   });
   it("Selecting Sales Person", () => {
-    // cy.selectSalesPersons();
+    cy.selectSalesPersons();
   });
   it("Verifying Customer Details", () => {
     cy.verifyCustomerData(customer);
@@ -126,7 +126,11 @@ describe("cash sale", () => {
         cy.downloadDocument();
         cy.completeSale();
         //customer.full_name = `${customer.first_name} ${customer.last_name}`;
+      });
+      it("Verify Screen After payment", () => {
         customer.finalizeSale = false;
+        cy.log("customer.finalizeSale", customer.finalizeSale);
+        // customer.tradeInContains = true;
         cy.verifyScreen(customer);
         cy.confirmationAtFinalizeSale();
         cy.get(".sales-home").contains("Deal Activity").should("be.visible");
@@ -136,6 +140,12 @@ describe("cash sale", () => {
       it("Change Sale type to BHPH", () => {
         cy.wait(1000);
         cy.changeSaleType(customer.typeOfSale);
+      });
+      it("Adding Deffered Downpaymeny", () => {
+        cy.defferedDownPayment(
+          customer.differedDate,
+          customer.differedDownPaymentAmount
+        );
       });
       it("complete a BHPH Sale by making payment and dowmloading the Docs", () => {
         // const customer = verifyScreenCase.verifyScreen.case1
@@ -148,8 +158,10 @@ describe("cash sale", () => {
         cy.completeSale();
         // customer.full_name = `${customer.first_name} ${customer.last_name}`;
         // customer.bhphOrOutsideFinance = true;
+      });
+      it("Verify Screen After payment", () => {
         customer.finalizeSale = false;
-        // customer.tradeInContains = true;
+        customer.tradeInContains = true;
         cy.verifyScreen(customer);
         cy.confirmationAtFinalizeSale();
         cy.get(".sales-home").contains("Deal Activity").should("be.visible");
