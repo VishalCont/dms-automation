@@ -52,18 +52,18 @@ describe("Sales Flow", () => {
         customer.tradeInVehicleYear = vehicleYear;
         //(customer.tradeInVehicleYear);
       });
-    // cy.get("input[formcontrolname = 'make']")
-    //   .invoke("val")
-    //   .then((vehicleMake) => {
-    //     customer.trade_in_vehicle_year = vehicleMake;
-    //     cy.log(customer.trade_in_vehicle_make);
-    //   });
-    // cy.get("input[formcontrolname = 'model']")
-    //   .invoke("val")
-    //   .then((vehicleModel) => {
-    //     customer.trade_in_vehicle_year = vehicleModel;
-    //     cy.log(customer.trade_in_vehicle_model);
-    //   });
+    cy.get("div.vehicle-make ng-select .ng-value-label")
+      .invoke("text")
+      .then((vehicleMake) => {
+        customer.tradeInVehicleMake = vehicleMake;
+        cy.log(customer.tradeInVehicleMake);
+      });
+    cy.get("div.vehicle-model ng-select .ng-value-label")
+      .invoke("text")
+      .then((vehicleModel) => {
+        customer.tradeInVehicleModel = vehicleModel;
+        cy.log(customer.tradeInVehicleModel);
+      });
     cy.get("input[formcontrolname = 'vin']")
       .invoke("val")
       .then((vehicleVIN) => {
@@ -114,19 +114,20 @@ describe("Sales Flow", () => {
         cy.wait(1000);
         cy.changeSaleType(customer.typeOfSale);
       });
-      it("Adding Deffered Downpaymeny", () => {
+      it("Adding Deffered Down payment", () => {
         cy.defferedDownPayment(
           customer.differedDate,
           customer.differedDownPaymentAmount
         );
       });
-      it("complete a BHPH Sale by making payment and dowmloading the Docs", () => {
+      it("complete a BHPH Sale by making payment and downloading the Docs", () => {
         // const customer = verifyScreenCase.verifyScreen.case1
         customer.full_name = `${customer.first_name} ${customer.last_name}`;
         customer.bhphOrOutsideFinance = true;
         customer.tradeInContains = true;
+        customer.deffDownpaymentContains = true;
         cy.verifyScreen(customer);
-        cy.closeFloorPlan();
+        //cy.closeFloorPlan();
         //cy.makePayment(customer);
         cy.downloadDocument();
         cy.completeSale();

@@ -15,6 +15,11 @@ export interface VData {
   tradeInVehicleYear: string;
   tradeInVehicleVIN: string;
   tradeInVehiclelicensePlate: string;
+  tradeInVehicleMake: string;
+  tradeInVehicleModel: string;
+  deffDownpaymentContains: boolean;
+  differedDate: Date;
+  differedDownPaymentAmount: string;
 }
 import { API_URL } from "../../utils/constants";
 import moment = require("moment");
@@ -63,13 +68,13 @@ export const verifyScreen = (verifyScreenData: VData) => {
         ".row.no-border.tradein-section.ng-star-inserted :nth-child(1) div"
       ).should("have.text", `Year: ${verifyScreenData.tradeInVehicleYear} `);
 
-      // cy.get(
-      //   ".row.no-border.tradein-section.ng-star-inserted :nth-child(2) div"
-      // ).should("have.text", `Make: ${verifyScreenData.tradeInvehicleMake}`);
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(2) div"
+      ).should("have.text", `Make: ${verifyScreenData.tradeInVehicleMake} `);
 
-      // cy.get(
-      //   ".row.no-border.tradein-section.ng-star-inserted :nth-child(3) div"
-      // ).should("have.text", String);
+      cy.get(
+        ".row.no-border.tradein-section.ng-star-inserted :nth-child(3) div"
+      ).should("have.text", `Model: ${verifyScreenData.tradeInVehicleModel} `);
 
       cy.get(
         ".row.no-border.tradein-section.ng-star-inserted :nth-child(4) div"
@@ -81,6 +86,14 @@ export const verifyScreen = (verifyScreenData: VData) => {
         "have.text",
         `License No.: ${verifyScreenData.tradeInVehiclelicensePlate}`
       );
+    }
+    if (verifyScreenData.deffDownpaymentContains === true) {
+      cy.get(
+        ".downpayment-section .row.ng-star-inserted div:nth-child(1)"
+      ).should("contain", verifyScreenData.differedDate);
+      cy.get(
+        ".downpayment-section .row.ng-star-inserted div:nth-child(2)"
+      ).should("contain", verifyScreenData.differedDownPaymentAmount);
     }
   }
   //cy.intercept(`${ENV}/sales/*`).as("VerifyScreenWait");
