@@ -37,10 +37,10 @@
   },
   {
     "vehicleSalePrice": 15000,
-    "salesPrice": "16468.50",
+    "salesPrice": "16425.01",
     "salesTax": "937.50",
-    "otherCharges": "531.00",
-    "totalOfGovernmentFees": "301.00"
+    "otherCharges": "487.51",
+    "totalOfGovernmentFees": "257.51"
   },
   {
     "vehicleSalePrice": 15000,
@@ -101,7 +101,7 @@
     {
     "vehicleSalePrice": 10000,
     "salesTax": "625.00",
-    "salesPrice": "11143.50",
-    "otherCharges": "518.50"
+    "salesPrice": "11098.01",
+    "otherCharges": "473.01"
     }
 ]
