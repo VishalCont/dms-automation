@@ -42,49 +42,17 @@ describe("Sales Flow", () => {
       tradeQuotation.cashPaidToBuyer,
       tradeQuotation.actualCashValue
     );
-    cy.wait(2000);
-    cy.get("button#trade-in").first().click();
-    cy.contains("Vehicle Valuations").should("be.visible");
-
-    cy.get("input[formcontrolname = 'year']")
-      .invoke("val")
-      .then((vehicleYear) => {
-        customer.tradeInVehicleYear = vehicleYear;
-        //(customer.tradeInVehicleYear);
-      });
-    cy.get("div.vehicle-make ng-select .ng-value-label")
-      .invoke("text")
-      .then((vehicleMake) => {
-        customer.tradeInVehicleMake = vehicleMake;
-        cy.log(customer.tradeInVehicleMake);
-      });
-    cy.get("div.vehicle-model ng-select .ng-value-label")
-      .invoke("text")
-      .then((vehicleModel) => {
-        customer.tradeInVehicleModel = vehicleModel;
-        cy.log(customer.tradeInVehicleModel);
-      });
-    cy.get("input[formcontrolname = 'vin']")
-      .invoke("val")
-      .then((vehicleVIN) => {
-        customer.tradeInVehicleVIN = vehicleVIN;
-        cy.log(customer.tradeInVehicleVIN);
-      });
-    cy.get("input[formcontrolname = 'license_plate']")
-      .invoke("val")
-      .then((vehicleLicensePlate) => {
-        customer.tradeInVehicleVINlicensePlate = vehicleLicensePlate;
-        //var trade = customer.trade_in_vehicle_license_plate
-        cy.log(customer.tradeInVehicleVINlicensePlate);
-      });
-
-    cy.intercept(`${API_URL}/sales/sales_trade_in/*`).as("tradeInWait");
-    cy.get("button").contains("SAVE & CONTINUE").click();
-    cy.wait("@tradeInWait");
+    cy.tradeInDetails(customer).then((customer) => {
+      //write to file
+      cy.writeFile("src/dump/customer-copy.json", customer);
+    });
   });
   it("Adding DCC/Gap to Sale", () => {
-    cy.log(customer.trade_in_vehicle_year);
-    cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+    cy.readFile("src/dump/customer-copy.json").then((customer) => {
+      // read file and use object
+      cy.log(customer.tradeInVehicleMake);
+      cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+    });
   });
   it("Adding Service Contract to sale ", () => {
     cy.existingVendorForServiceContract("Vendor", "qwerty", "125", "125");
@@ -129,6 +97,11 @@ describe("Sales Flow", () => {
         cy.verifyScreen(customer);
         //cy.closeFloorPlan();
         //cy.makePayment(customer);
+        customer.salesPerson = `${
+          customer.salesPerson.charAt(0).toLocaleUpperCase() +
+          customer.salesPerson.substring(1)
+        } - ${customer.commission}`;
+        cy.commissionRecap(customer);
         cy.downloadDocument();
         cy.completeSale();
         // customer.full_name = `${customer.first_name} ${customer.last_name}`;

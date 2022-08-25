@@ -1,3 +1,5 @@
 node_modules
 cypress/screenshots
 cypress/videos
+src/dump/*.json
+cypress/downloads/*.pdf

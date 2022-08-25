@@ -29,12 +29,12 @@ export const verifyScreen = (verifyScreenData: VData) => {
     throw new Error("There is no Customer Details sent");
   if (verifyScreenData.finalizeSale == true) {
     cy.get("button").contains("Calculate").click();
-    cy.wait(4000);
+    cy.wait(5000);
     cy.get(`input[type='button'][value='NEXT']`).click();
     //cy.wait("@verifyScreenWait");
   }
   if (verifyScreenData.bhphOrOutsideFinance === true) {
-    cy.wait(2000);
+    cy.wait(5000);
     cy.get(".finance-section-details div.row.p-1.ng-star-inserted").should(
       "contain",
       verifyScreenData.apr
