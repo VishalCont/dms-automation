@@ -51,6 +51,7 @@ require("./deal_builder/verify_customer_details_on_deal_builder.command");
 require("./deal_builder/deal_worksheet.command");
 require("./deal_builder/commission_recap.command");
 require("./deal_builder/ofac_check.command");
+require("./deal_builder/refund.command ");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
