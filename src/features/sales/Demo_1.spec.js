@@ -432,34 +432,8 @@ describe("Demo", () => {
   });
   //deal work sheet
   it("deal worksheet", () => {
-    const quotation = quotationDetails[15];
-    cy.wait(4000);
-    cy.changeSaleType(1);
-    cy.wait(2000);
-    cy.get("[formcontrolname='sale_price']")
-      .clear()
-      .type(quotation.vehicleSalePrice);
-    cy.get("body").click();
-    cy.get("[formcontrolname='tax_rate']").should(
-      "have.value",
-      quotation.salesTax
-    );
-    //check other charges
-    cy.get("[formcontrolname='totalQuoteOtherCharges']").should(
-      "have.value",
-      quotation.otherCharges
-    );
-    //sales price
-    cy.get("[formcontrolname='quotation_price']").should(
-      "have.value",
-      quotation.salesPrice
-    );
-    cy.wait(3000);
-    // verify screen
-    //    const customer = verifyScreenCases.verifyScreen.case5;
-    // cy.verifyScreen(customer);
-
-    const dealSheet = dealWorksheetCases.dealWorksheet.case2;
+    
+    const dealSheet = dealWorksheetCases.dealWorksheet.outside;
     cy.dealWorksheet(
       dealSheet.salesPrice,
       dealSheet.documentaryFee,
@@ -474,9 +448,9 @@ describe("Demo", () => {
       dealSheet.deferredDownpayment,
       dealSheet.financing,
       dealSheet.total,
-      "outside"
+      dealSheet.type
     );
-  });
+  })
   it("OFAC check with SSN and OFAC Name", () => {
     const ofacValidating = ofacCheckCases.ofacCheck.ssn;
     cy.log(ofacValidating.ssn_number);

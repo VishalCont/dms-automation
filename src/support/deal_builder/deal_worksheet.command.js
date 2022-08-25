@@ -5,8 +5,8 @@ Cypress.Commands.add("dealWorksheet",(salesPrice, documentaryFee,
     totalSalesPrice, cashDownpayment, amountFinanced, deferredDownpayment, 
     financing, total, type) =>{
 
-//cy.get("button").contains("Calculate").click();
-//cy.wait(6000);
+cy.get("button").contains("Calculate").click();
+cy.wait(6000);
 cy.get('[value="NEXT"]').click();
 cy.wait(6000);
 cy.get("app-verification-screen").contains("OK").click();
@@ -58,7 +58,7 @@ switch(type)
         cy.get(".sales-price-section .inventorytax-details :nth-child(2)").should("contain", inventoryTax);
         cy.get(".sales-price-section .total-sales-price-details :nth-child(2)").should("contain", totalSalesPrice);
         cy.get(".downPayment-details :nth-child(2)").should("contain", cashDownpayment);
-        cy.get(".total-price-details :nth-child(2)").should("contain", total);
+        cy.get(".total-price-details").should("contain", total);
         break;
     case "wholesale":
         cy.get(".sales-price-section .salesprice-details :nth-child(2)").should("contain", salesPrice);

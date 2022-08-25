@@ -122,37 +122,36 @@ export const salesRecapSheet = {
   },
 };
 export const dealWorksheet ={
-  //cash
-  case1: {
-    salesPrice: "10,000.00",
-    documentaryFee: "150.00",
-    salesTax : "625.00",
-    governmentFee: "113.50",
+  cash: {
+    salesPrice: "12,000.00",
+    documentaryFee: "52.00",
+    salesTax : "750.00",
+    governmentFee: "162.01",
     serviceContract: "0.00",
-    dccGap: "230.00",
-    inventoryTax: "25.00",
-    totalSalesPrice: "11,143.50",
-    cashDownpayment: "11,143.50",
-    total: "11,143.50"
+    dccGap: "0.00",
+    inventoryTax: "34.80",
+    totalSalesPrice: "12,998.81",
+    cashDownpayment: "12,998.81",
+    total: "12,998.81",
+    type: "cash"
   },
-  //outside
-  case2: {
+  outside: {
     salesPrice: "10,000.00",
-    documentaryFee: "150.00",
+    documentaryFee: "52.00",
     salesTax : "625.00",
-    governmentFee: "113.50",
+    governmentFee: "162.01",
     serviceContract: "0.00",
     dccGap: "230.00",
-    inventoryTax: "25.00",
-    totalSalesPrice: "11,143.50",
+    inventoryTax: "29.00",
+    totalSalesPrice: "11,098.01",
     cashDownpayment: "0.00",
-    amountFinanced: "11,143.50",
+    amountFinanced: "11,098.01",
     deferredDownpayment: "0.00",
-    financing: "4,600.01",
-    total: "15,743.51"
+    financing: "4,575.49",
+    total: "15,673.50",
+    type: "outside"
   },
-  //bhph
-  case3: {
+  bhph: {
     salesPrice: "10,000.00",
     documentaryFee: "150.00",
     salesTax : "625.00",
@@ -164,10 +163,10 @@ export const dealWorksheet ={
     amountFinanced: "11,143.50",
     deferredDownpayment: "0.00",
     financing: "4,268.48",
-    total: "15,411.98"
+    total: "15,411.98",
+    type: "bhph"
   },
-     //wholesale
-  case4: {
+  wholesale: {
     salesPrice: "10,000.00",
     documentaryFee: "0.00",
     salesTax : "0.00",
@@ -177,7 +176,8 @@ export const dealWorksheet ={
     inventoryTax: "0.00",
     totalSalesPrice: "10,230.00",
     cashDownpayment: "10,230.00",
-    total: "10,230.00"
+    total: "10,230.00",
+    type: "wholesale"
   },
   
 };
