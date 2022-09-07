@@ -3,3 +3,4 @@ cypress/screenshots
 cypress/videos
 src/dump/*.json
 cypress/downloads/*.pdf
+cypress/reports/*.jsons

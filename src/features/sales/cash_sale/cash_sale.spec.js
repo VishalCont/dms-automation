@@ -3,7 +3,7 @@
 import { API_URL } from "../../../utils/constants";
 var moment = require("moment");
 var customerDetails = require(`../../../utils/sales_flow_cases`);
-var tradeInDetails = require(`../../../data/trade_in_details.json`);
+//var tradeInDetails = require(`../../../data/trade_in_details.json`);
 let customer = customerDetails.salesValues.BHPH;
 describe("Sales Flow", () => {
   beforeEach(() => {
@@ -35,13 +35,7 @@ describe("Sales Flow", () => {
     cy.verifyCustomerData(customer);
   });
   it("Adding TradeIn to Sale", () => {
-    const tradeQuotation = tradeInDetails[0];
-    cy.tradeIn(
-      tradeQuotation.dealerTradeInOffer,
-      tradeQuotation.payOffLoanBalance,
-      tradeQuotation.cashPaidToBuyer,
-      tradeQuotation.actualCashValue
-    );
+    cy.tradeIn(customer);
     cy.tradeInDetails(customer).then((customer) => {
       //write to file
       cy.writeFile("src/dump/customer-copy.json", customer);
@@ -103,13 +97,17 @@ describe("Sales Flow", () => {
         } - ${customer.commission}`;
         cy.commissionRecap(customer);
         cy.downloadDocument();
-        cy.completeSale();
+
         // customer.full_name = `${customer.first_name} ${customer.last_name}`;
         // customer.bhphOrOutsideFinance = true;
+      });
+      it("Deal Worksheet", () => {
+        cy.dealWorksheet(customer);
       });
       it("Verify Screen After payment", () => {
         customer.finalizeSale = false;
         customer.tradeInContains = true;
+        cy.completeSale();
         cy.verifyScreen(customer);
         cy.confirmationAtFinalizeSale();
         cy.get(".sales-home").contains("Deal Activity").should("be.visible");

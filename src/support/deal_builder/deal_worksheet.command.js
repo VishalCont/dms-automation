@@ -6,22 +6,50 @@
 //     financing, total, type) =>{
 
 Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
-  if (dealWorksheet.saleType == "BHPH" || "OutsideFinance") {
-    cy.get("button").contains("Calculate").click();
-    cy.wait(6000);
-  }
-  cy.get('[value="NEXT"]').click();
-  cy.wait(6000);
-  cy.get("app-verification-screen").contains("OK").click();
+  // if (dealWorksheet.saleType == "BHPH" || "OutsideFinance") {
+  //   cy.get("button").contains("Calculate").click();
+  //   cy.wait(6000);
+  // }
+  // cy.get('[value="NEXT"]').click();
+  // cy.wait(6000);
+  // cy.get("app-verification-screen").contains("OK").click();
   //cy.get('.modal-body > :nth-child(2) > .btn-ddms-orange').click();
   cy.wait(6000);
   cy.get(".nav-item.active span").should("contain", "Finalize Sale");
   cy.wait(3000);
   cy.get("button").contains("Deal Worksheet").click();
   cy.wait(5000);
+  //Need to Verify With developers
+  dealWorksheet.full_name = `${dealWorksheet.first_name} ${dealWorksheet.last_name}`;
+  cy.get(".buyer-details-section > p.mb-0.wb").should(
+    "contain",
+    dealWorksheet.first_name
+  );
+  cy.get(".buyer-details-section > p:nth-child(6)").should(
+    "contain",
+    dealWorksheet.phone
+  );
+  // Checking TradeIn Details
+  cy.get(".vin-details-section1 span:nth-child(2)").should(
+    "contain",
+    dealWorksheet.tradeInVehicleVIN
+  );
+  cy.get(".dealer-trade-in-offer-details-section1 span:nth-child(2)").should(
+    "contain",
+    dealWorksheet.dealerTradeInOffer
+  );
+  cy.get(".pay-off-loan-balance-details-section1 span:nth-child(2)").should(
+    "contain",
+    dealWorksheet.payOffLoanBalance
+  );
+  cy.get(".cash-paid-to-buyer-details-section1 span:nth-child(2)").should(
+    "contain",
+    dealWorksheet.cashPaidToBuyer
+  );
+  cy.debug();
   cy.get(".sales-price-section .salesprice-details :nth-child(2)").should(
     "contain",
-    dealWorksheet.salesPrice
+    dealWorksheet.vehicle_price
   );
   cy.get(".sales-price-section .fee-details :nth-child(2)").should(
     "contain",
@@ -52,7 +80,7 @@ Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
   ).should("contain", dealWorksheet.totalSalesPrice);
   cy.get(".downPayment-details :nth-child(2)").should(
     "contain",
-    dealWorksheet.cashDownpayment
+    dealWorksheet.downPayment
   );
   cy.get(".total-price-details :nth-child(2)").should(
     "contain",
@@ -66,11 +94,11 @@ Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
       );
       cy.get(".deferred-downpayment-details :nth-child(2)").should(
         "contain",
-        dealWorksheet.deferredDownpayment
+        dealWorksheet.differedDownPaymentAmount
       );
       cy.get(".financing-charge-details :nth-child(2)").should(
         "contain",
-        dealWorksheet.financing
+        dealWorksheet.financeCharge
       );
       break;
     case "outside":
@@ -80,11 +108,11 @@ Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
       );
       cy.get(".deferred-downpayment-details :nth-child(2)").should(
         "contain",
-        dealWorksheet.deferredDownpayment
+        dealWorksheet.differedDownPaymentAmount
       );
       cy.get(".financing-charge-details :nth-child(2)").should(
         "contain",
-        dealWorksheet.financing
+        dealWorksheet.financeCharge
       );
       break;
     case "cash":
@@ -92,4 +120,5 @@ Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
     case "wholesale":
       break;
   }
+  cy.get("#closeBtnID").click();
 });

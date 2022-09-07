@@ -6,6 +6,8 @@ export interface customerData {
   tradeInVehicleModel: string;
   tradeInVehicleVIN: string;
   tradeInVehicleVINlicensePlate: string;
+  tradeInStock: string;
+  tradeVehicleMileage: string;
 }
 export const tradeInDetails = (customer: customerData) => {
   cy.wait(2000);
@@ -43,6 +45,20 @@ export const tradeInDetails = (customer: customerData) => {
       customer.tradeInVehicleVINlicensePlate = vehicleLicensePlate as string;
       //var trade = customer.trade_in_vehicle_license_plate
       cy.log(customer.tradeInVehicleVINlicensePlate);
+    });
+  cy.get("input[formcontrolname = 'stock_number']")
+    .invoke("val")
+    .then((vehicleStockNo) => {
+      customer.tradeInStock = vehicleStockNo as string;
+      //var trade = customer.trade_in_vehicle_license_plate
+      cy.log(customer.tradeInStock);
+    });
+  cy.get("input[formcontrolname = 'mileage']")
+    .invoke("val")
+    .then((vehicleMileAge) => {
+      customer.tradeVehicleMileage = vehicleMileAge as string;
+      //var trade = customer.trade_in_vehicle_license_plate
+      cy.log(customer.tradeVehicleMileage);
     });
   cy.intercept(`${API_URL}/sales/sales_trade_in/*`).as("tradeInWait");
   cy.get("button").contains("SAVE & CONTINUE").click();
