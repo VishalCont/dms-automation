@@ -23,6 +23,7 @@ import { confirmationAtFinalizeSale } from "./deal_builder/confirmation_to_compl
 import { selectSalesPersons } from "./deal_builder/selecting_sales_person.command";
 import { closeFloorPlan } from "./deal_builder/close_floor_plan.command";
 import { tradeInDetails } from "./deal_builder/trade_In_details_command";
+import { addVehicle, vehicleData } from "./Inventory/add_vehicle.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -87,6 +88,7 @@ declare global {
       selectSalesPersons: (customer: customerData) => void;
       closeFloorPlan: () => void;
       tradeInDetails: (attr: any) => void;
+      addVehicle: (customer: vehicleData) => void;
     }
   }
 }
@@ -110,3 +112,4 @@ Cypress.Commands.add("confirmationAtFinalizeSale", confirmationAtFinalizeSale);
 Cypress.Commands.add("selectSalesPersons", selectSalesPersons);
 Cypress.Commands.add("closeFloorPlan", closeFloorPlan);
 Cypress.Commands.add("tradeInDetails", tradeInDetails);
+Cypress.Commands.add("addVehicle", addVehicle);

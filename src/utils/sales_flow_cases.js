@@ -1,5 +1,7 @@
 import { faker } from "@faker-js/faker";
+const vinGenerator = require("vin-generator");
 var moment = require("moment");
+
 export const salesValues = {
   cash: {
     first_name: faker.name.firstName().replace("'", ""),
@@ -194,5 +196,13 @@ export const salesValues = {
     otherCalculation: " ",
     otherCommissionRate: " ",
     otherCommission: " ",
+  },
+};
+export const inventoryValues = {
+  vehicleDetails: {
+    vin: vinGenerator.generateVin(),
+    mileage: faker.random.numeric(5),
+    vehiclePrice: faker.random.numeric(4),
+    buyerFee: faker.random.numeric(2),
   },
 };

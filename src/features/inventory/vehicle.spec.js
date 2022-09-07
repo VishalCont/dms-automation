@@ -74,7 +74,6 @@ describe("Vehicle Test Suite", () => {
     cy.get(
       "div.container-fluid.px-5.pb-80px  tab.tab-style.tab-pane.ng-star-inserted.active div.ml-auto > button"
     ).click();
-    cy.get(1000);
     cy.get("div.d-flex.justify-content-end span").click();
     cy.get("div.d-flex.justify-content-end  li:nth-child(1) > a").click();
     //cy.get('button[type="FINISH"]').click();
