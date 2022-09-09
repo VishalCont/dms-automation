@@ -56,16 +56,27 @@ describe("Sales Flow", () => {
       it("complete a Cash Sale by making payment and dowmloading the Docs", () => {
         // const customer = verifyScreenCase.verifyScreen.case1
         customer.full_name = `${customer.first_name} ${customer.last_name}`;
+        //cy.test();
         cy.verifyScreen(customer);
         cy.makePayment(customer);
+        customer.salesPerson = `${
+          customer.salesPerson.charAt(0).toLocaleUpperCase() +
+          customer.salesPerson.substring(1)
+        } - ${customer.commission}`;
+        cy.commissionRecap(customer);
         cy.downloadDocument();
-        cy.completeSale();
+
         //customer.full_name = `${customer.first_name} ${customer.last_name}`;
+      });
+      it("Deal Worksheet", () => {
+        cy.dealWorksheet(customer);
       });
       it("Verify Screen After payment", () => {
         customer.finalizeSale = false;
         cy.log("customer.finalizeSale", customer.finalizeSale);
-        // customer.tradeInContains = true;
+        customer.tradeInContains = true;
+        customer.finalizeSale = false;
+        cy.completeSale();
         cy.verifyScreen(customer);
         cy.confirmationAtFinalizeSale();
         cy.get(".sales-home").contains("Deal Activity").should("be.visible");
@@ -121,7 +132,7 @@ describe("Sales Flow", () => {
       //
       break;
     default:
-      cy.log("Sale type is incorrect");
+      //cy.log("Sale type is incorrect");
       break;
   }
 });

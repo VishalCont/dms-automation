@@ -25,16 +25,19 @@ import { API_URL } from "../../utils/constants";
 import moment = require("moment");
 //import { isInteger } from "cypress/types/lodash/fp";
 export const verifyScreen = (verifyScreenData: VData) => {
+  cy.wait(2000);
   if (verifyScreenData == null)
     throw new Error("There is no Customer Details sent");
   if (verifyScreenData.finalizeSale == true) {
-    cy.get("button").contains("Calculate").click();
-    cy.wait(5000);
-    cy.get(`input[type='button'][value='NEXT']`).click();
+    if (verifyScreenData.bhphOrOutsideFinance === true) {
+      cy.get("button").contains("Calculate").click();
+      cy.wait(5000);
+    }
     //cy.wait("@verifyScreenWait");
+    cy.get(`input[type='button'][value='NEXT']`).click();
+    cy.wait(5000);
   }
   if (verifyScreenData.bhphOrOutsideFinance === true) {
-    cy.wait(5000);
     cy.get(".finance-section-details div.row.p-1.ng-star-inserted").should(
       "contain",
       verifyScreenData.apr
@@ -128,7 +131,4 @@ export const verifyScreen = (verifyScreenData: VData) => {
     "verifyScreenWait"
   );
   cy.get("app-verification-screen").contains("OK").click();
-  if (verifyScreenData.finalizeSale == true) {
-    //cy.wait("@verifyScreenWait");
-  }
 };

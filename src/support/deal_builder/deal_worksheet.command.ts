@@ -1,19 +1,33 @@
-/// <reference types = "Cypress"/>
-
+export interface customer {
+  full_name: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  tradeInVehicleVIN: string;
+  dealerTradeInOffer: string;
+  payOffLoanBalance: string;
+  cashPaidToBuyer: string;
+  vehicle_price: string;
+  documentaryFee: string;
+  salesTax: string;
+  governmentFee: string;
+  serviceContract: string;
+  dccGap: string;
+  inventoryTax: string;
+  totalSalesPrice: string;
+  downPayment: string;
+  total: string;
+  saleType: string;
+  amountFinanced: string;
+  differedDownPaymentAmount: string;
+  financeCharge: string;
+}
 // Cypress.Commands.add("dealWorksheet",(salesPrice, documentaryFee,
 //     salesTax, governmentFee, serviceContract, dccGap, inventoryTax,
 //     totalSalesPrice, cashDownpayment, amountFinanced, deferredDownpayment,
 //     financing, total, type) =>{
 
-Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
-  // if (dealWorksheet.saleType == "BHPH" || "OutsideFinance") {
-  //   cy.get("button").contains("Calculate").click();
-  //   cy.wait(6000);
-  // }
-  // cy.get('[value="NEXT"]').click();
-  // cy.wait(6000);
-  // cy.get("app-verification-screen").contains("OK").click();
-  //cy.get('.modal-body > :nth-child(2) > .btn-ddms-orange').click();
+export const dealWorksheet = (dealWorksheet: customer) => {
   cy.wait(6000);
   cy.get(".nav-item.active span").should("contain", "Finalize Sale");
   cy.wait(3000);
@@ -86,8 +100,10 @@ Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
     "contain",
     dealWorksheet.total
   );
+  cy.log(dealWorksheet.saleType);
   switch (dealWorksheet.saleType) {
     case "BHPH":
+      cy.log(dealWorksheet.saleType);
       cy.get(".amountFinanced-details :nth-child(2)").should(
         "contain",
         dealWorksheet.amountFinanced
@@ -116,9 +132,10 @@ Cypress.Commands.add("dealWorksheet", (dealWorksheet) => {
       );
       break;
     case "cash":
+      cy.log("In The Cash");
       break;
     case "wholesale":
       break;
   }
   cy.get("#closeBtnID").click();
-});
+};
