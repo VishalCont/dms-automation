@@ -117,7 +117,7 @@ export const dealWorksheet = (dealWorksheet: customer) => {
         dealWorksheet.financeCharge
       );
       break;
-    case "outside":
+    case "OutsideFinance":
       cy.get(".amountFinanced-details :nth-child(2)").should(
         "contain",
         dealWorksheet.amountFinanced

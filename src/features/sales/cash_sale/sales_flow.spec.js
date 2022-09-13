@@ -4,7 +4,7 @@ import { API_URL } from "../../../utils/constants";
 var moment = require("moment");
 var customerDetails = require(`../../../utils/sales_flow_cases`);
 //var tradeInDetails = require(`../../../data/trade_in_details.json`);
-let customer = customerDetails.salesValues.BHPH;
+let customer = customerDetails.salesValues.Wholesale;
 describe("Sales Flow", () => {
   beforeEach(() => {
     cy.restoreLocalStorageCache();
@@ -62,7 +62,7 @@ describe("Sales Flow", () => {
         customer.salesPerson = `${
           customer.salesPerson.charAt(0).toLocaleUpperCase() +
           customer.salesPerson.substring(1)
-        } - ${customer.commission}`;
+        } - ${customer.otherCommission}`;
         cy.commissionRecap(customer);
         cy.downloadDocument();
 
@@ -126,9 +126,86 @@ describe("Sales Flow", () => {
 
       break;
     case "OutsideFinance":
+      // Commission Recap Need to be updated once sales recap sheet is done
+      it("Change Sale type to Outside Finance", () => {
+        cy.wait(1000);
+        cy.changeSaleType(customer.typeOfSale);
+      });
+      it("Select Lien Holder", () => {
+        cy.wait(1000);
+        cy.selectLienHolder(customer);
+      });
+      it("Adding Deffered Down payment", () => {
+        cy.defferedDownPayment(
+          customer.differedDate,
+          customer.differedDownPaymentAmount
+        );
+      });
+      it("complete a BHPH Sale by making payment and downloading the Docs", () => {
+        // const customer = verifyScreenCase.verifyScreen.case1
+        customer.full_name = `${customer.first_name} ${customer.last_name}`;
+        customer.bhphOrOutsideFinance = true;
+        customer.tradeInContains = true;
+        customer.deffDownpaymentContains = true;
+        cy.verifyScreen(customer);
+        //cy.closeFloorPlan();
+        //cy.makePayment(customer);
+        customer.salesPerson = `${
+          customer.salesPerson.charAt(0).toLocaleUpperCase() +
+          customer.salesPerson.substring(1)
+        } - ${customer.otherCommission}`;
+        cy.commissionRecap(customer);
+        cy.downloadDocument();
+
+        // customer.full_name = `${customer.first_name} ${customer.last_name}`;
+        // customer.bhphOrOutsideFinance = true;
+      });
+      it("Deal Worksheet", () => {
+        cy.dealWorksheet(customer);
+      });
+      it("Verify Screen After payment", () => {
+        customer.finalizeSale = false;
+        customer.tradeInContains = true;
+        cy.completeSale();
+        cy.verifyScreen(customer);
+        cy.confirmationAtFinalizeSale();
+        cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+      });
       //
       break;
     case "Wholesale":
+      it("Change Sale type to Wholesale", () => {
+        cy.wait(1000);
+        cy.changeSaleType(customer.typeOfSale);
+      });
+      it("complete a Cash Sale by making payment and dowmloading the Docs", () => {
+        // const customer = verifyScreenCase.verifyScreen.case1
+        customer.full_name = `${customer.first_name} ${customer.last_name}`;
+        //cy.test();
+        cy.verifyScreen(customer);
+        cy.makePayment(customer);
+        customer.salesPerson = `${
+          customer.salesPerson.charAt(0).toLocaleUpperCase() +
+          customer.salesPerson.substring(1)
+        } - ${customer.otherCommission}`;
+        //cy.commissionRecap(customer);
+        cy.downloadDocument();
+
+        //customer.full_name = `${customer.first_name} ${customer.last_name}`;
+      });
+      it("Deal Worksheet", () => {
+        cy.dealWorksheet(customer);
+      });
+      it("Verify Screen After payment", () => {
+        customer.finalizeSale = false;
+        cy.log("customer.finalizeSale", customer.finalizeSale);
+        customer.tradeInContains = true;
+        customer.finalizeSale = false;
+        cy.completeSale();
+        cy.verifyScreen(customer);
+        cy.confirmationAtFinalizeSale();
+        cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+      });
       //
       break;
     default:
