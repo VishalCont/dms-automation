@@ -63,6 +63,7 @@ export const salesValues = {
     totalSalesPrice: "7,910.51",
     total: "7,910.51",
     lienHolder: "qwerty",
+    taxInclude: "no",
   },
   BHPH: {
     first_name: faker.name.firstName().replace("'", ""),
@@ -124,6 +125,8 @@ export const salesValues = {
     totalSalesPrice: "7,910.51",
     total: "11,106.49",
     lienHolder: "qwerty",
+    taxInclude: "no",
+    salesTaxMonthly: "0",
   },
   OutsideFinance: {
     first_name: faker.name.firstName().replace("'", ""),
@@ -185,6 +188,7 @@ export const salesValues = {
     totalSalesPrice: "7,910.51",
     total: "11,106.49",
     lienHolder: "qwerty",
+    taxInclude: "no",
   },
   Wholesale: {
     first_name: faker.name.firstName().replace("'", ""),
@@ -246,6 +250,7 @@ export const salesValues = {
     totalSalesPrice: "7,480.00",
     total: "7,480.00",
     lienHolder: "qwerty",
+    taxInclude: "no",
   },
 };
 export const inventoryValues = {

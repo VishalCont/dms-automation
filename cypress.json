@@ -12,5 +12,9 @@
     "embeddedScreenshots": true,
     "inlineAssets": true
   },
+  "numTestsKeptInMemory": 0,
+  "requestTimeout": 30000,
+  "responseTimeout": 50000,
+  "pageLoadTimeout": 100000,
   "video": false
 }
