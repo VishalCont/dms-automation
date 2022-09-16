@@ -26,6 +26,7 @@ import { tradeInDetails } from "./deal_builder/trade_In_details_command";
 import { addVehicle, vehicleData } from "./Inventory/add_vehicle.command";
 import { customer, dealWorksheet } from "./deal_builder/deal_worksheet.command";
 import { selectLienHolder } from "./deal_builder/select_lien_holder.command";
+import { dCustomer, salesRecap } from "./deal_builder/sales_recapsheet.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -45,17 +46,18 @@ require("./deal_builder/clear_downpayment.command");
 require("./deal_builder/clear_defferdownpayment.command");
 require("./deal_builder/change_sale_type.command");
 //require("./deal_builder/otherCharges_selection.command");
-require("./deal_builder/buyratefrombank_lienholder.command");
+require("./deal_builder/finance_charge_rate_participation.command");
 require("./deal_builder/flatrate_lienholder.command");
 require("./deal_builder/financeCharge_rate.command");
 require("./deal_builder/local_storage_memory.command");
-require("./deal_builder/sales_recapsheet_for_outside.command");
+//require("./deal_builder/sales_recapsheet_for_outside.command");
 require("./deal_builder/verify_customer_details_on_deal_builder.command");
 //require("./deal_builder/deal_worksheet.command");
 require("./deal_builder/commission_recap.command");
 require("./deal_builder/ofac_check.command");
 require("./deal_builder/refund.command ");
 require("./deal_builder/test.command");
+require("./deal_builder/add_lien_holder.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
@@ -94,6 +96,7 @@ declare global {
       addVehicle: (customer: vehicleData) => void;
       dealWorksheet: (dealWorksheet: customer) => void;
       selectLienHolder: (customer: VData) => void;
+      salesRecap: (salesRecap: dCustomer) => void;
     }
   }
 }
@@ -120,3 +123,4 @@ Cypress.Commands.add("tradeInDetails", tradeInDetails);
 Cypress.Commands.add("addVehicle", addVehicle);
 Cypress.Commands.add("dealWorksheet", dealWorksheet);
 Cypress.Commands.add("selectLienHolder", selectLienHolder);
+Cypress.Commands.add("salesRecap", salesRecap);
