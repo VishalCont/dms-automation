@@ -44,7 +44,7 @@ Cypress.Commands.add(
       cy.get("button").contains("SAVE").should("be.visible").click();
     }
     cy.wait("@dccWait");
-    cy.wait("@dccWait");
+    //cy.wait("@dccWait");
     cy.wait(4000);
   }
 );
