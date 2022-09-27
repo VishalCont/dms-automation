@@ -650,13 +650,10 @@ export const salesValues = {
     total: "7,910.51",
     lienHolder: "qwerty",
     taxInclude: "no",
-<<<<<<< HEAD
     netSellingPrice: "11,000.00",
     totalDownPayment: "3,000.00",
     totalOfTaxAndFee: "430.51",
-=======
     jointCustomer: true,
->>>>>>> bd3fc78fd5b1b0ab12c2b9d274649e6e06d021ed
   },
   BHPH: {
     first_name: faker.name.firstName().replace("'", ""),
