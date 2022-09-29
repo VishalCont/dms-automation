@@ -21,6 +21,7 @@ export interface customer {
   amountFinanced: string;
   differedDownPaymentAmount: string;
   financeCharge: string;
+  tradeInContains: boolean;
 }
 // Cypress.Commands.add("dealWorksheet",(salesPrice, documentaryFee,
 //     salesTax, governmentFee, serviceContract, dccGap, inventoryTax,
@@ -44,22 +45,24 @@ export const dealWorksheet = (dealWorksheet: customer) => {
     dealWorksheet.phone
   );
   // Checking TradeIn Details
-  cy.get(".vin-details-section1 span:nth-child(2)").should(
-    "contain",
-    dealWorksheet.tradeInVehicleVIN
-  );
-  cy.get(".dealer-trade-in-offer-details-section1 span:nth-child(2)").should(
-    "contain",
-    dealWorksheet.dealerTradeInOffer
-  );
-  cy.get(".pay-off-loan-balance-details-section1 span:nth-child(2)").should(
-    "contain",
-    dealWorksheet.payOffLoanBalance
-  );
-  cy.get(".cash-paid-to-buyer-details-section1 span:nth-child(2)").should(
-    "contain",
-    dealWorksheet.cashPaidToBuyer
-  );
+  if (dealWorksheet.tradeInContains === true) {
+    cy.get(".vin-details-section1 span:nth-child(2)").should(
+      "contain",
+      dealWorksheet.tradeInVehicleVIN
+    );
+    cy.get(".dealer-trade-in-offer-details-section1 span:nth-child(2)").should(
+      "contain",
+      dealWorksheet.dealerTradeInOffer
+    );
+    cy.get(".pay-off-loan-balance-details-section1 span:nth-child(2)").should(
+      "contain",
+      dealWorksheet.payOffLoanBalance
+    );
+    cy.get(".cash-paid-to-buyer-details-section1 span:nth-child(2)").should(
+      "contain",
+      dealWorksheet.cashPaidToBuyer
+    );
+  }
   cy.debug();
   cy.get(".sales-price-section .salesprice-details :nth-child(2)").should(
     "contain",

@@ -11,4 +11,5 @@ Cypress.Commands.add("refund", () => {
     "#collapseEvent7 :nth-child(2) > datatable-body-row :nth-child(4) p"
   ).click();
   cy.get("button").contains("Download Receipt").click();
+  cy.get("button").contains("Cancel").click();
 });
