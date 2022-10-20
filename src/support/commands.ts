@@ -58,6 +58,9 @@ require("./deal_builder/ofac_check.command");
 require("./deal_builder/refund.command ");
 require("./deal_builder/test.command");
 require("./deal_builder/add_lien_holder.command");
+require("./deal_builder/remove_deal.command");
+require("./deal_builder/continue_existingdeal.command");
+require("./deal_builder/change_mileage.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
