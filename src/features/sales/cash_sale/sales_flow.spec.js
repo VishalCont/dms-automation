@@ -35,9 +35,9 @@ for (let index = 0; index < loanTypes.length; index++) {
       cy.changeSalePrice(customer);
       cy.wait(2000);
     });
-    it("Selecting Sales Person", () => {
-      cy.selectSalesPersons(customer);
-    });
+    // it("Selecting Sales Person", () => {
+    //   cy.selectSalesPersons(customer);
+    // });
     it("Verifying Customer Details", () => {
       cy.verifyCustomerData(customer);
     });
@@ -86,7 +86,16 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
+          cy.wait(3000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(8000);
+          cy.recentDeal();
+          cy.wait(3000);
+          cy.saleDetails(customer);
+          cy.wait(5000);
+          cy.dealWorksheet(customer);
+          cy.wait(5000);
+          cy.salesRecap(customer);
         });
         break;
       case "BHPH":
@@ -94,6 +103,11 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
         });
+        it("selecting sales person", () => {
+          cy.wait(3000);
+          cy.selectSalesPersons(customer);
+          cy.wait(3000);
+        })
         it("Adding Deffered Down payment", () => {
           cy.defferedDownPayment(
             customer.differedDate,
@@ -128,7 +142,16 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
+          cy.wait(8000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(8000);
+          cy.recentDeal();
+          cy.wait(3000);
+          cy.saleDetails(customer);
+          cy.wait(5000);
+          cy.dealWorksheet(customer);
+          cy.wait(5000);
+          cy.salesRecap(customer);
         });
 
         break;
@@ -176,7 +199,16 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
+          cy.wait(8000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(8000);
+          cy.recentDeal();
+          cy.wait(3000);
+          cy.saleDetails(customer);
+          cy.wait(5000);
+          cy.dealWorksheet(customer);
+          cy.wait(5000);
+          cy.salesRecap(customer);
         });
         //
         break;
@@ -211,7 +243,16 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
+          cy.wait(8000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(8000);
+          cy.recentDeal();
+          cy.wait(3000);
+          cy.saleDetails(customer);
+          cy.wait(5000);
+          cy.dealWorksheet(customer);
+          cy.wait(5000);
+          cy.salesRecap(customer);
         });
         //
         break;

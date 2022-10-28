@@ -27,6 +27,8 @@ import { addVehicle, vehicleData } from "./Inventory/add_vehicle.command";
 import { customer, dealWorksheet } from "./deal_builder/deal_worksheet.command";
 import { selectLienHolder } from "./deal_builder/select_lien_holder.command";
 import { dCustomer, salesRecap } from "./deal_builder/sales_recapsheet.command";
+import { saleDetails } from "./deal_builder/sale_details.command";
+import { recentDeal } from "./deal_builder/recent_deal.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -100,6 +102,8 @@ declare global {
       dealWorksheet: (dealWorksheet: customer) => void;
       selectLienHolder: (customer: VData) => void;
       salesRecap: (salesRecap: dCustomer) => void;
+      saleDetails: (saleDetails: customer) => void;
+      recentDeal: () => void;
     }
   }
 }
@@ -127,3 +131,5 @@ Cypress.Commands.add("addVehicle", addVehicle);
 Cypress.Commands.add("dealWorksheet", dealWorksheet);
 Cypress.Commands.add("selectLienHolder", selectLienHolder);
 Cypress.Commands.add("salesRecap", salesRecap);
+Cypress.Commands.add("saleDetails", saleDetails);
+Cypress.Commands.add("recentDeal", recentDeal);
