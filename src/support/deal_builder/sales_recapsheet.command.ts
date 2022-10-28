@@ -39,7 +39,7 @@ export const salesRecap = (salesRecap: dCustomer) => {
   // cy.wait(10000);
   // cy.get("app-verification-screen").contains("OK").click();
   // cy.wait(3000);
-  cy.get(".nav-item.active span").should("contain", "Finalize Sale");
+  //cy.get(".nav-item.active span").should("contain", "Finalize Sale");
   cy.wait(3000);
   cy.get("button").contains("SALES RECAP SHEET").click();
   cy.wait(3000);

@@ -29,8 +29,8 @@ export interface customer {
 //     financing, total, type) =>{
 
 export const dealWorksheet = (dealWorksheet: customer) => {
-  cy.wait(6000);
-  cy.get(".nav-item.active span").should("contain", "Finalize Sale");
+  //cy.wait(6000);
+  //cy.get(".nav-item.active span").should("contain", "Finalize Sale");
   cy.wait(3000);
   cy.get("button").contains("Deal Worksheet").click();
   cy.wait(5000);
