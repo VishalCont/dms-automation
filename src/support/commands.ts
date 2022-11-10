@@ -29,6 +29,7 @@ import { selectLienHolder } from "./deal_builder/select_lien_holder.command";
 import { dCustomer, salesRecap } from "./deal_builder/sales_recapsheet.command";
 import { saleDetails } from "./deal_builder/sale_details.command";
 import { recentDeal } from "./deal_builder/recent_deal.command";
+import { receiptDownload } from "./deal_builder/receipt_download.command";
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -104,6 +105,7 @@ declare global {
       salesRecap: (salesRecap: dCustomer) => void;
       saleDetails: (saleDetails: customer) => void;
       recentDeal: () => void;
+      receiptDownload: (receiptDownload: customer) => void;
     }
   }
 }
@@ -133,3 +135,4 @@ Cypress.Commands.add("selectLienHolder", selectLienHolder);
 Cypress.Commands.add("salesRecap", salesRecap);
 Cypress.Commands.add("saleDetails", saleDetails);
 Cypress.Commands.add("recentDeal", recentDeal);
+Cypress.Commands.add("receiptDownload", receiptDownload);

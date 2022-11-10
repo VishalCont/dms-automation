@@ -66,6 +66,7 @@ for (let index = 0; index < loanTypes.length; index++) {
           //cy.test();
           cy.verifyScreen(customer);
           cy.makePayment(customer);
+          cy.receiptDownload(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
@@ -91,6 +92,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(8000);
           cy.recentDeal();
           cy.wait(3000);
+        });
+        it("sale details page", () => {
           cy.saleDetails(customer);
           cy.wait(5000);
           cy.dealWorksheet(customer);
@@ -103,11 +106,16 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
         });
+        it("downpayment", () => {
+          cy.wait(3000);
+          cy.downPayment(500);
+          cy.wait(3000);
+        });
         it("selecting sales person", () => {
           cy.wait(3000);
           cy.selectSalesPersons(customer);
           cy.wait(3000);
-        })
+        });
         it("Adding Deffered Down payment", () => {
           cy.defferedDownPayment(
             customer.differedDate,
@@ -121,6 +129,10 @@ for (let index = 0; index < loanTypes.length; index++) {
           customer.tradeInContains = true;
           customer.deffDownpaymentContains = true;
           cy.verifyScreen(customer);
+          cy.wait(4000);
+          cy.makePayment(customer);
+          cy.wait(4000);
+          cy.receiptDownload(customer);
           //cy.closeFloorPlan();
           //cy.makePayment(customer);
           customer.salesPerson = `${
@@ -147,6 +159,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(8000);
           cy.recentDeal();
           cy.wait(3000);
+        });
+        it("sale details page", () => {
           cy.saleDetails(customer);
           cy.wait(5000);
           cy.dealWorksheet(customer);
@@ -160,6 +174,11 @@ for (let index = 0; index < loanTypes.length; index++) {
         it("Change Sale type to Outside Finance", () => {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
+        });
+        it("downPayment", () => {
+          cy.wait(3000);
+          cy.downPayment(500);
+          cy.wait(3000);
         });
         it("Select Lien Holder", () => {
           cy.wait(1000);
@@ -179,7 +198,10 @@ for (let index = 0; index < loanTypes.length; index++) {
           customer.deffDownpaymentContains = true;
           cy.verifyScreen(customer);
           //cy.closeFloorPlan();
-          //cy.makePayment(customer);
+          cy.wait(4000);
+          cy.makePayment(customer);
+          cy.wait(4000);
+          cy.receiptDownload(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
@@ -204,6 +226,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(8000);
           cy.recentDeal();
           cy.wait(3000);
+        });
+        it("sale details page", () => {
           cy.saleDetails(customer);
           cy.wait(5000);
           cy.dealWorksheet(customer);
@@ -222,7 +246,9 @@ for (let index = 0; index < loanTypes.length; index++) {
           customer.full_name = `${customer.first_name} ${customer.last_name}`;
           //cy.test();
           cy.verifyScreen(customer);
+          cy.wait(4000);
           cy.makePayment(customer);
+          cy.receiptDownload(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
@@ -248,6 +274,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(8000);
           cy.recentDeal();
           cy.wait(3000);
+        });
+        it("sale details page", () => {
           cy.saleDetails(customer);
           cy.wait(5000);
           cy.dealWorksheet(customer);
