@@ -35,9 +35,9 @@ for (let index = 0; index < loanTypes.length; index++) {
       cy.changeSalePrice(customer);
       cy.wait(2000);
     });
-    // it("Selecting Sales Person", () => {
-    //   cy.selectSalesPersons(customer);
-    // });
+    it("Selecting Sales Person", () => {
+      cy.selectSalesPersons(customer);
+    });
     it("Verifying Customer Details", () => {
       cy.verifyCustomerData(customer);
     });
@@ -66,7 +66,6 @@ for (let index = 0; index < loanTypes.length; index++) {
           //cy.test();
           cy.verifyScreen(customer);
           cy.makePayment(customer);
-          cy.receiptDownload(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
@@ -89,32 +88,12 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.confirmationAtFinalizeSale();
           cy.wait(3000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
-          cy.wait(8000);
-          cy.recentDeal();
-          cy.wait(3000);
-        });
-        it("sale details page", () => {
-          cy.saleDetails(customer);
-          cy.wait(5000);
-          cy.dealWorksheet(customer);
-          cy.wait(5000);
-          cy.salesRecap(customer);
         });
         break;
       case "BHPH":
         it("Change Sale type to BHPH", () => {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
-        });
-        it("downpayment", () => {
-          cy.wait(3000);
-          cy.downPayment(500);
-          cy.wait(3000);
-        });
-        it("selecting sales person", () => {
-          cy.wait(3000);
-          cy.selectSalesPersons(customer);
-          cy.wait(3000);
         });
         it("Adding Deffered Down payment", () => {
           cy.defferedDownPayment(
@@ -129,17 +108,13 @@ for (let index = 0; index < loanTypes.length; index++) {
           customer.tradeInContains = true;
           customer.deffDownpaymentContains = true;
           cy.verifyScreen(customer);
-          cy.wait(4000);
-          cy.makePayment(customer);
-          cy.wait(4000);
-          cy.receiptDownload(customer);
           //cy.closeFloorPlan();
           //cy.makePayment(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
           } - ${customer.commission}`;
-          cy.commissionRecap(customer);
+          //cy.commissionRecap(customer);
           cy.downloadDocument();
 
           // customer.full_name = `${customer.first_name} ${customer.last_name}`;
@@ -154,18 +129,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
-          cy.wait(8000);
-          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
-          cy.wait(8000);
-          cy.recentDeal();
           cy.wait(3000);
-        });
-        it("sale details page", () => {
-          cy.saleDetails(customer);
-          cy.wait(5000);
-          cy.dealWorksheet(customer);
-          cy.wait(5000);
-          cy.salesRecap(customer);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
 
         break;
@@ -174,11 +139,6 @@ for (let index = 0; index < loanTypes.length; index++) {
         it("Change Sale type to Outside Finance", () => {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
-        });
-        it("downPayment", () => {
-          cy.wait(3000);
-          cy.downPayment(500);
-          cy.wait(3000);
         });
         it("Select Lien Holder", () => {
           cy.wait(1000);
@@ -198,10 +158,7 @@ for (let index = 0; index < loanTypes.length; index++) {
           customer.deffDownpaymentContains = true;
           cy.verifyScreen(customer);
           //cy.closeFloorPlan();
-          cy.wait(4000);
-          cy.makePayment(customer);
-          cy.wait(4000);
-          cy.receiptDownload(customer);
+          //cy.makePayment(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
@@ -221,18 +178,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
-          cy.wait(8000);
-          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
-          cy.wait(8000);
-          cy.recentDeal();
           cy.wait(3000);
-        });
-        it("sale details page", () => {
-          cy.saleDetails(customer);
-          cy.wait(5000);
-          cy.dealWorksheet(customer);
-          cy.wait(5000);
-          cy.salesRecap(customer);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         //
         break;
@@ -246,9 +193,7 @@ for (let index = 0; index < loanTypes.length; index++) {
           customer.full_name = `${customer.first_name} ${customer.last_name}`;
           //cy.test();
           cy.verifyScreen(customer);
-          cy.wait(4000);
           cy.makePayment(customer);
-          cy.receiptDownload(customer);
           customer.salesPerson = `${
             customer.salesPerson.charAt(0).toLocaleUpperCase() +
             customer.salesPerson.substring(1)
@@ -269,18 +214,8 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.completeSale();
           cy.verifyScreen(customer);
           cy.confirmationAtFinalizeSale();
-          cy.wait(8000);
-          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
-          cy.wait(8000);
-          cy.recentDeal();
           cy.wait(3000);
-        });
-        it("sale details page", () => {
-          cy.saleDetails(customer);
-          cy.wait(5000);
-          cy.dealWorksheet(customer);
-          cy.wait(5000);
-          cy.salesRecap(customer);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         //
         break;
