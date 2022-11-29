@@ -31,6 +31,7 @@ import { saleDetails } from "./deal_builder/sale_details.command";
 import { recentDeal } from "./deal_builder/recent_deal.command";
 import { receiptDownload } from "./deal_builder/receipt_download.command";
 import { quickDealCalculator } from "./deal_builder/quick_dealcalculator.command";
+
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
 require("./deal_builder/dcc_gap_newVendor.command");
@@ -65,6 +66,9 @@ require("./deal_builder/add_lien_holder.command");
 require("./deal_builder/remove_deal.command");
 require("./deal_builder/continue_existingdeal.command");
 require("./deal_builder/change_mileage.command");
+require("./deal_builder/deselect_salestax_govtfee.command");
+
+
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
@@ -108,7 +112,7 @@ declare global {
       recentDeal: () => void;
       receiptDownload: (receiptDownload: customer) => void;
       quickDealCalculator: ()=>void;
-
+      
     }
   }
 }
@@ -140,3 +144,4 @@ Cypress.Commands.add("saleDetails", saleDetails);
 Cypress.Commands.add("recentDeal", recentDeal);
 Cypress.Commands.add("receiptDownload", receiptDownload);
 Cypress.Commands.add("quickDealCalculator", quickDealCalculator);
+
