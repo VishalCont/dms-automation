@@ -35,7 +35,7 @@ export const verifyScreen = (verifyScreenData: VData) => {
     }
     //cy.wait("@verifyScreenWait");
     cy.get(`input[type='button'][value='NEXT']`).click();
-    cy.wait(5000);
+    cy.wait(8000);
   }
   if (verifyScreenData.bhphOrOutsideFinance === true) {
     cy.get(".finance-section-details div.row.p-1.ng-star-inserted").should(

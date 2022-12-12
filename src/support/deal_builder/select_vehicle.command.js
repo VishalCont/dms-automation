@@ -12,12 +12,12 @@ Cypress.Commands.add("selectVehicle", () => {
   // //Wait
   // cy.wait("@vehicleList");
   // In Select vehicle Tab-check condition for vehicles>0 (a.vehicle-select) this have length>0
-  cy.wait(1000);
+  cy.wait(12000);
   cy.get("a.vehicle-select").its("length").should("be.greaterThan", 0);
   // array.first(); it selects first vehicle
   cy.intercept(`${API_URL}/sales/credit700/*`).as("dealBuilder");
   cy.get("a.vehicle-select").first().click();
-  cy.wait("@dealBuilder", { timeout: 12000 });
+  cy.wait("@dealBuilder", { timeout: 18000 });
   //check with Api call if the page is moved to Dealbuilder page
   cy.contains("Quotation Detail").should("be.visible");
 });

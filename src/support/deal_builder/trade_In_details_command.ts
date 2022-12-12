@@ -10,7 +10,7 @@ export interface customerData {
   tradeVehicleMileage: string;
 }
 export const tradeInDetails = (customer: customerData) => {
-  cy.wait(2000);
+  cy.wait(15000);
   cy.get("button#trade-in").first().click();
   cy.contains("Vehicle Valuations").should("be.visible");
 

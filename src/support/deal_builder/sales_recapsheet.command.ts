@@ -1,4 +1,4 @@
-export interface dCustomer {
+export interface customer {
   full_name: string;
   first_name: string;
   last_name: string;
@@ -31,7 +31,7 @@ export interface dCustomer {
 //      otherCharges, salesTax, totalOfTaxAndFee,
 //      payoffOnTradeIn, inventoryTax, lienHolder, type) => {
 
-export const salesRecap = (salesRecap: dCustomer) => {
+export const salesRecap = (salesRecap: customer) => {
   cy.wait(10000);
   // cy.get("button").contains("Calculate").click();
   // cy.wait(10000);
