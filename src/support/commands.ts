@@ -67,8 +67,9 @@ require("./deal_builder/remove_deal.command");
 require("./deal_builder/continue_existingdeal.command");
 require("./deal_builder/change_mileage.command");
 require("./deal_builder/deselect_salestax_govtfee.command");
-
-
+require("./deal_builder/changing_interestrates.command");
+require("./deal_builder/cancel_deal.command");
+require("./deal_builder/cancel_contiuedeal.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {

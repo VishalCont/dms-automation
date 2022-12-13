@@ -31,6 +31,9 @@ describe("Sales Flow", () => {
     "case13",
     "case14",
     "case15",
+    "case16",
+    "case17",
+    "case18",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -501,6 +504,88 @@ describe("Sales Flow", () => {
           cy.wait(5000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
           cy.wait(5000);
+        });
+        break;
+      case "case16":
+        it("BHPH-Changing interest rates and Back calculating interest rates", () => {
+          cy.wait(1000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+          //cy.test();
+          cy.changeInterestRate(customer);
+          cy.wait(6000);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(6000);
+          cy.downloadDocument();
+
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case17":
+        it("Government fees and Sales tax selection and deSelection", () => {
+          cy.wait(1000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+          //cy.test();
+          cy.deselectSalesTaxGovtFee();
+          cy.wait(6000);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(6000);
+          cy.downloadDocument();
+
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case18":
+        it("Cancel deal after going through and Then go through deal again", () => {
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+
+          cy.wait(6000);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(6000);
+          cy.downloadDocument();
+
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(12000);
+          cy.cancelContinueDeal();
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         break;
     }
