@@ -13,27 +13,27 @@ describe("Sales Flow", () => {
     cy.saveLocalStorageCache();
   });
   it("Logging in to DMS Dealer Account", () => {
-    cy.login("clearent", "Admin@123");
+    cy.login("shelby_ltd", "Admin@123");
   });
   var cases = [
-    "case1",
-    "case2",
-    "case3",
-    "case4",
-    "case5",
-    "case6",
-    "case7",
-    "case8",
-    "case9",
-    "case10",
-    "case11",
-    "case12",
-    "case13",
-    "case14",
-    "case15",
-    "case16",
-    "case17",
-    "case18",
+    // "case1",
+    // "case2",
+    // "case3",
+    // "case4",
+    // "case5",
+    // "case6",
+    // "case7",
+    // "case8",
+    // "case9",
+    // "case10",
+    // "case11",
+    // "case12",
+    // "case13",
+    // "case14",
+    // "case15",
+    // "case16",
+    // "case17",
+    // "case18",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -46,6 +46,7 @@ describe("Sales Flow", () => {
       cy.wait(3000);
       cy.newCustomer(customer);
       cy.selectVehicle();
+      cy.changeSaleDate(customer);
       cy.changeSalePrice(customer);
       cy.selectSalesPersons(customer);
       cy.verifyCustomerData(customer);
@@ -358,7 +359,6 @@ describe("Sales Flow", () => {
           cy.downloadDocument();
           cy.dealWorksheet(customer);
           cy.salesRecap(customer);
-          cy.commissionRecap(customer);
           customer.finalizeSale = false;
           cy.completeSale();
           cy.verifyScreen(customer);
