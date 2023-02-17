@@ -20,7 +20,7 @@ for (let index = 0; index < loanTypes.length; index++) {
       cy.saveLocalStorageCache();
     });
     it("Logging in to DMS Dealer Account", () => {
-      cy.login("clearent", "Admin@123");
+      cy.login("shelby_ltd", "Admin@123");
     });
     it("Starting a Sale", () => {
       cy.wait(2000);
@@ -33,6 +33,10 @@ for (let index = 0; index < loanTypes.length; index++) {
     });
     it("Change Sale price", () => {
       cy.changeSalePrice(customer);
+      cy.wait(2000);
+    });
+    it("Change Sale Date", () => {
+      cy.changeSaleDate(customer);
       cy.wait(2000);
     });
     it("Selecting Sales Person", () => {
