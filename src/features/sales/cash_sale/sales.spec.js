@@ -16,24 +16,27 @@ describe("Sales Flow", () => {
     cy.login("shelby_ltd", "Admin@123");
   });
   var cases = [
-    // "case1",
-    // "case2",
-    // "case3",
-    // "case4",
-    // "case5",
-    // "case6",
-    // "case7",
-    // "case8",
-    // "case9",
-    // "case10",
-    // "case11",
-    // "case12",
-    // "case13",
-    // "case14",
-    // "case15",
-    // "case16",
-    // "case17",
-    // "case18",
+    "case1",
+    "case2",
+    "case3",
+    "case4",
+    "case5",
+    "case6",
+    "case7",
+    "case8",
+    "case9",
+    "case10",
+    "case11",
+    "case12",
+    "case13",
+    "case14",
+    "case15",
+    "case16",
+    "case17",
+    "case18",
+    "case19",
+    "case20",
+    "case21",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -507,6 +510,89 @@ describe("Sales Flow", () => {
         });
         break;
       case "case16":
+        it("sale details page after completing cash Sale", () => {
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
+          cy.recentDeal(customer);
+          cy.saleDetails(customer);
+        });
+        break;
+      case "case17":
+        it("Changing mileage", () => {
+          cy.wait(3000);
+          cy.changeMileage(customer.mileage);
+          cy.wait(3000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
+          //sale details page
+          cy.get("datatable-body-cell:nth-child(1) a").first().click();
+          cy.wait(5000);
+          //mileage selector
+          cy.get("#collapseEvent4 :nth-child(2) :nth-child(1) > .col-sm-4")
+            .invoke("text")
+            .as("v1");
+          //assertion
+          cy.get("@v1").then((v1) => {
+            expect(parseFloat(v1)).to.equal(customer.mileage);
+          });
+        });
+        break;
+      case "case18":
+        it("Changing sale type to cash and Adding new lien holder", () => {
+          cy.wait(5000);
+          cy.addLienHolder(customer.randomName);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case19":
         it("BHPH-Changing interest rates and Back calculating interest rates", () => {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
@@ -533,7 +619,7 @@ describe("Sales Flow", () => {
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         break;
-      case "case17":
+      case "case20":
         it("Government fees and Sales tax selection and deSelection", () => {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
@@ -560,7 +646,7 @@ describe("Sales Flow", () => {
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         break;
-      case "case18":
+      case "case21":
         it("Cancel deal after going through and Then go through deal again", () => {
           cy.changeSaleType(customer.typeOfSale);
           cy.wait(3000);

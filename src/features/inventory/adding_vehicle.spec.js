@@ -10,7 +10,7 @@ describe(" Adding vehicle to Inventory ", () => {
     cy.saveLocalStorageCache();
   });
   it(" logging into DMS Dealer ", () => {
-    cy.login("clearent", "Admin@123");
+    cy.login("shelby_ltd", "Admin@123");
   });
   it("Adding Vehicle", () => {
     for (let index = 0; index < 10; index++) {
