@@ -20,50 +20,45 @@ export interface VData {
   deffDownpaymentContains: boolean;
   differedDate: Date;
   differedDownPaymentAmount: string;
-  
-x:any;
+  startDay: string;
 
-   //startDate:Date;
+  x: any;
+
+  //startDate:Date;
 }
 import { API_URL } from "../../utils/constants";
 import moment = require("moment");
 //import { isInteger } from "cypress/types/lodash/fp";
-export const verifyScreen = (verifyScreenData: VData,saleDate?:string) => {
-
-let z;
+export const verifyScreen = (verifyScreenData: VData, saleDate?: string) => {
+  let z;
 
   cy.wait(2000);
   if (verifyScreenData == null)
     throw new Error("There is no Customer Details sent");
   if (verifyScreenData.finalizeSale == true) {
     if (verifyScreenData.bhphOrOutsideFinance === true) {
-      
-     
       // z=Cypress.$('[formcontrolname="sale_date"]').val()
       // cy.log("print date:",z)
-  
+
       cy.get("button").contains("Calculate").click();
       cy.wait(5000);
-      
+
       // if(saleDate){
       //   console.log("checking what is the date",y);
       //   y=saleDate;
       // }
-      
+
       //cy.log(z);
     }
     //cy.wait("@verifyScreenWait");
     cy.get(`input[type='button'][value='NEXT']`).click();
     cy.wait(10000);
-   
+
     //  let y= Cypress.$("app-verification-screen .container-fluid>.row>p:nth-child(2).innerText")
-    
+
     //  cy.log("this is log of y----",y);
-    
-      
   }
   if (verifyScreenData.bhphOrOutsideFinance === true) {
-  
     cy.get(".finance-section-details div.row.p-1.ng-star-inserted").should(
       "contain",
       verifyScreenData.apr
@@ -84,29 +79,27 @@ let z;
       "contain",
       verifyScreenData.noOfPayments
     );
-       
+
     cy.get(
       ".payments-section-details div:nth-child(2) div:nth-child(2) div"
     ).should("contain", verifyScreenData.installmentAmount);
-   ////start
-  cy.get("app-verification-screen .container-fluid>.row>p:nth-child(2)")
-   .invoke('text').then((text1) =>{
-    
-   
-  
-     cy.log(text1);
-    
-  
-    
+    //start
+    cy.get("app-verification-screen .container-fluid>.row>p:nth-child(2)")
+      .invoke("text")
+      .then((text1) => {
+        cy.log(text1);
 
-
-    cy.get(".payments-section-details > div:nth-child(2) div:nth-child(3) div")
-      .should("contain", " monthly ")
-      .should("contain", moment(text1).add(14, "days").format("MM-DD-YYYY"));
-  });
-    // cy.get(".payments-section-details > div:nth-child(2) div:nth-child(3) div")
-    //   .should("contain", " monthly ")
-    //   .should("contain", verifyScreenData.startDate);
+        cy.get(
+          ".payments-section-details > div:nth-child(2) div:nth-child(3) div"
+        )
+          .should("contain", " monthly ")
+          .should(
+            "contain",
+            moment(text1)
+              .add(verifyScreenData.startDay ?? 14, "days")
+              .format("MM-DD-YYYY")
+          );
+      });
 
     if (verifyScreenData.tradeInContains === true) {
       cy.get(
@@ -172,5 +165,5 @@ let z;
   cy.intercept(`${API_URL}/dealeradminnew/common-settings/dealer_documents`).as(
     "verifyScreenWait"
   );
-    cy.get("app-verification-screen").contains("OK").click();
+  cy.get("app-verification-screen").contains("OK").click();
 };
