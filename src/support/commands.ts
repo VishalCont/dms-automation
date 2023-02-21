@@ -70,6 +70,7 @@ require("./deal_builder/deselect_salestax_govtfee.command");
 require("./deal_builder/changing_interestrates.command");
 require("./deal_builder/cancel_deal.command");
 require("./deal_builder/cancel_contiuedeal.command");
+require("./deal_builder/change_days_to_first_payment.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
