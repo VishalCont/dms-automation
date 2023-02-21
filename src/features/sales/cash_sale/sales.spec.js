@@ -37,6 +37,7 @@ describe("Sales Flow", () => {
     "case19",
     "case20",
     "case21",
+    "case22",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -225,6 +226,7 @@ describe("Sales Flow", () => {
           customer.bhphOrOutsideFinance = true;
           //cy.test();
           cy.wait(3000);
+
           cy.verifyScreen(customer);
         });
         it(customer.case, () => {
@@ -671,6 +673,34 @@ describe("Sales Flow", () => {
           cy.confirmationAtFinalizeSale();
           cy.wait(12000);
           cy.cancelContinueDeal();
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case22":
+        it("Change first payment date complete the sale ", () => {
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+
+          cy.wait(6000);
+          cy.changeFirstPaymentDate(customer.startDay);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(6000);
+          cy.downloadDocument();
+
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(12000);
+
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         break;
