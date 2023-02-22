@@ -38,6 +38,9 @@ describe("Sales Flow", () => {
     "case20",
     "case21",
     "case22",
+    "case23",
+    "case24",
+    "case25",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -702,6 +705,100 @@ describe("Sales Flow", () => {
           cy.wait(12000);
 
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case23":
+        it("Checking with deffered sales tax No", () => {
+          cy.wait(1000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          cy.defSalesTax(customer);
+          cy.wait(4000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+          //cy.test();
+          cy.wait(3000);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          cy.dealWorksheet(customer);
+          cy.commissionRecap(customer);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
+        });
+        break;
+      case "case24":
+        it("Doing a cash sale and download receipt in finalize page", () => {
+          cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          //cy.test();
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(4000);
+          cy.receiptDownload(customer);
+          cy.wait(4000);
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.dealWorksheet(customer);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
+        });
+        break;
+      case "case25":
+        it("BHPH with down payment and download receipt in finalize page", () => {
+          // cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+          cy.wait(4000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          cy.downPayment(customer.downPayment);
+          cy.wait(4000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          //cy.test();
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          cy.wait(4000);
+          cy.receiptDownload(customer);
+          cy.wait(5000);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.wait(4000);
+          cy.refund();
+          cy.wait(4000);
+          cy.dealWorksheet(customer);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
         });
         break;
     }
