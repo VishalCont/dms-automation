@@ -2,6 +2,8 @@ import { API_URL } from "../../utils/constants";
 
 export interface VData {
   totalSalePrice: string;
+  checkSalesPrice: boolean;
+  downPayment: string;
 }
 export const makePayment = (makePaymentData: VData) => {
   if (makePaymentData == null)
@@ -9,22 +11,37 @@ export const makePayment = (makePaymentData: VData) => {
 
   cy.wait(5000);
 
-  cy.get(
-    "#collapseEvent9 > div > div:nth-child(1) > div > div > p.col-7"
-  ).contains(makePaymentData.totalSalePrice);
+  if (makePaymentData.checkSalesPrice === true) {
+    cy.get(
+      "#collapseEvent9 > div > div:nth-child(1) > div > div > p.col-7"
+    ).contains(makePaymentData.totalSalePrice);
+    cy.get("button").contains("Make Payment").click();
+    let amount1 = makePaymentData.totalSalePrice;
+    cy.get("modal-container .modal-header h5").should(
+      "have.text",
+      "Confirm Payment Details"
+    );
+    cy.get("modal-container input[formcontrolname='amount']").should(
+      "have.value",
+      amount1.replace(/,/g, "")
+    );
+  } else {
+    cy.get(
+      "#collapseEvent9 > div > div:nth-child(1) > div > div > p.col-7"
+    ).contains(makePaymentData.downPayment);
+    cy.get("button").contains("Make Payment").click();
+    let amount2 = makePaymentData.downPayment;
 
-  cy.get("button").contains("Make Payment").click();
-
-  cy.get("modal-container .modal-header h5").should(
-    "have.text",
-    "Confirm Payment Details"
-  );
-
-  let amount = makePaymentData.totalSalePrice;
-  cy.get("modal-container input[formcontrolname='amount']").should(
-    "have.value",
-    amount.replace(/,/g, "")
-  );
+    cy.get("modal-container .modal-header h5").should(
+      "have.text",
+      "Confirm Payment Details"
+    );
+    cy.log(amount2);
+    cy.get("modal-container input[formcontrolname='amount']").should(
+      "have.value",
+      amount2.replace(/,/g, "")
+    );
+  }
 
   cy.intercept(`${API_URL}/collections/payments/sale/Payment`).as(
     "makePaymentWait"
@@ -35,7 +52,7 @@ export const makePayment = (makePaymentData: VData) => {
   cy.wait("@makePaymentWait");
 };
 
-//make payment which i have done, with conditions, need to check with mam
+// make payment which i have done, with conditions, need to check with mam
 // import { API_URL } from "../../utils/constants";
 
 // export interface VData {

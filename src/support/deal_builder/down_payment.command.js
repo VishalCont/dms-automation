@@ -13,8 +13,10 @@ Cypress.Commands.add("downPayment", (downPaymentAmount) => {
   cy.get("input[formcontrolname='total_down_payment']")
     .invoke("val")
     .should("not.be.empty");
+  cy.wait(4000);
+  cy.get("button").contains("SAVE & CONTINUE").click();
+  //replacing comma in the down payment after save and continue
   cy.get("input[formcontrolname='totalQuoteDownPayment']")
     .invoke("val")
-    .should("not.be.empty");
-  cy.get("button").contains("SAVE & CONTINUE").click();
+    .should("contain", downPaymentAmount.replace(/,/g, ""));
 });
