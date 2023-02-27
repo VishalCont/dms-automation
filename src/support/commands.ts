@@ -71,6 +71,8 @@ require("./deal_builder/changing_interestrates.command");
 require("./deal_builder/cancel_deal.command");
 require("./deal_builder/cancel_contiuedeal.command");
 require("./deal_builder/change_days_to_first_payment.command");
+require("./deal_builder/outside_finance_type.command");
+require("./deal_builder/validate_document _inreport.command ");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
@@ -113,8 +115,7 @@ declare global {
       saleDetails: (saleDetails: customer) => void;
       recentDeal: () => void;
       receiptDownload: (receiptDownload: customer) => void;
-      quickDealCalculator: ()=>void;
-      
+      quickDealCalculator: () => void;
     }
   }
 }
@@ -146,4 +147,3 @@ Cypress.Commands.add("saleDetails", saleDetails);
 Cypress.Commands.add("recentDeal", recentDeal);
 Cypress.Commands.add("receiptDownload", receiptDownload);
 Cypress.Commands.add("quickDealCalculator", quickDealCalculator);
-
