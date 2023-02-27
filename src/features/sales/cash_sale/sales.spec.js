@@ -41,6 +41,8 @@ describe("Sales Flow", () => {
     "case23",
     "case24",
     "case25",
+    "case26",
+    "case27",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -799,6 +801,64 @@ describe("Sales Flow", () => {
           cy.wait(5000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
           cy.wait(5000);
+        });
+        break;
+      case "case26":
+        it("Doing Outside finance sale with  Law 555 doc ", () => {
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+          cy.changeOutsideFinanceType(customer.documentsUse);
+          cy.selectLienHolder(customer);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+          cy.wait(6000);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(7000);
+          cy.downloadDocument();
+
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(12000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.validateDocumentInReport(customer);
+        });
+        break;
+      case "case27":
+        it("Doing  Outside finance  sale with Carlton doc", () => {
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+          cy.changeOutsideFinanceType(customer.documentsUse);
+          cy.selectLienHolder(customer);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+          cy.wait(6000);
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(7000);
+          cy.downloadDocument();
+          cy.wait(1000);
+          cy.get(".modal-content").contains(" SAVE & CONTINUE ").click(); //carlton
+          cy.wait(20000);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(12000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.validateDocumentInReport(customer);
         });
         break;
     }

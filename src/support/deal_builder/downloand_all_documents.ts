@@ -9,6 +9,7 @@ export const downloadDocument = () => {
   cy.get(".modal-content").contains(" SAVE & CONTINUE ").click();
   cy.wait(1000);
   cy.get(".modal-content").contains(" SAVE & CONTINUE ").click();
+
   //cy.wait("@downloadWait");
-  cy.wait(20000);
+  cy.wait(12000);
 };
