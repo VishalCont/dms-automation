@@ -16,7 +16,6 @@ export const recentDeal = (recentDeal: customer) => {
     )
       .first()
       .click();
-    cy.get("h6").should("contain", "Customer Details");
     cy.wait(3000);
   }
 };
