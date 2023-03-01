@@ -45,6 +45,7 @@ describe("Sales Flow", () => {
     "case27",
     "case28",
     "case29",
+    "case30",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -904,6 +905,32 @@ describe("Sales Flow", () => {
           //   cy.get("#collapsibleNavbar a[href='/sales']").click();
           cy.wait(4000);
           cy.modifyDeal(customer);
+        });
+        break;
+      case "case30":
+        it(" Doing wholesale Deal ", () => {
+          cy.existingVendorForServiceContract("Vendor", "qwerty", "125", "125");
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wholesaleValidation();
+
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
         });
         break;
     }
