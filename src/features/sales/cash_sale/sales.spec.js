@@ -43,6 +43,8 @@ describe("Sales Flow", () => {
     "case25",
     "case26",
     "case27",
+    "case28",
+    "case29",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -859,6 +861,49 @@ describe("Sales Flow", () => {
           cy.wait(12000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
           cy.validateDocumentInReport(customer);
+        });
+        break;
+      case "case28":
+        it("BHPH with down payment and make a Refund in finalize page", () => {
+          // cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+          cy.wait(4000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          cy.downPayment(customer.downPayment);
+          cy.wait(4000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+          cy.wait(4000);
+          cy.makePayment(customer);
+          cy.wait(4000);
+          cy.downloadDocument();
+          cy.wait(4000);
+          cy.refundFinalizePage(customer);
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case29":
+        it("Doing Modify deal after sale gets completed", () => {
+          cy.wait(4000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.wait(4000);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          //   cy.get("#collapsibleNavbar a[href='/sales']").click();
+          cy.wait(4000);
+          cy.modifyDeal(customer);
         });
         break;
     }
