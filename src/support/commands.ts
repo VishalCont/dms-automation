@@ -33,6 +33,7 @@ import { receiptDownload } from "./deal_builder/receipt_download.command";
 import { quickDealCalculator } from "./deal_builder/quick_dealcalculator.command";
 import { refundFinalizePage } from "./deal_builder/refundFinalizePage.command";
 import { modifyDeal } from "./deal_builder/modifyDeal.command";
+import { salesTaxDisclosure } from "./deal_builder/sales_tax_disclosure.command";
 
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
@@ -123,6 +124,7 @@ declare global {
       changeFirstPaymentDate: (type: string) => void;
       selectPaymentSchedule: (type: string) => void;
       modifyDeal: () => void;
+      salesTaxDisclosure: () => void;
     }
   }
 }
@@ -156,3 +158,4 @@ Cypress.Commands.add("receiptDownload", receiptDownload);
 Cypress.Commands.add("quickDealCalculator", quickDealCalculator);
 Cypress.Commands.add("refundFinalizePage", refundFinalizePage);
 Cypress.Commands.add("modifyDeal", modifyDeal);
+Cypress.Commands.add("salesTaxDisclosure", salesTaxDisclosure);

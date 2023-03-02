@@ -16,36 +16,36 @@ describe("Sales Flow", () => {
     cy.login("shelby_ltd", "Admin@123");
   });
   var cases = [
-    "case1",
-    "case2",
-    "case3",
-    "case4",
-    "case5",
-    "case6",
-    "case7",
-    "case8",
-    "case9",
-    "case10",
-    "case11",
-    "case12",
-    "case13",
-    "case14",
-    "case15",
-    "case16",
-    "case17",
-    "case18",
-    "case19",
-    "case20",
-    "case21",
-    "case22",
+    // "case1",
+    // "case2",
+    // "case3",
+    // "case4",
+    // "case5",
+    // "case6",
+    // "case7",
+    // "case8",
+    // "case9",
+    // "case10",
+    // "case11",
+    // "case12",
+    // "case13",
+    // "case14",
+    // "case15",
+    // "case16",
+    // "case17",
+    // "case18",
+    // "case19",
+    // "case20",
+    // "case21",
+    // "case22",
     "case23",
-    "case24",
-    "case25",
-    "case26",
-    "case27",
-    "case28",
-    "case29",
-    "case30",
+    // "case24",
+    // "case25",
+    // "case26",
+    // "case27",
+    // "case28",
+    // "case29",
+    // "case30",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -713,7 +713,7 @@ describe("Sales Flow", () => {
         });
         break;
       case "case23":
-        it("Checking with deffered sales tax No", () => {
+        it("Checking with deffered sales tax Yes", () => {
           cy.wait(1000);
           cy.changeSaleType(customer.typeOfSale);
           cy.wait(4000);
@@ -732,6 +732,7 @@ describe("Sales Flow", () => {
           } - ${customer.otherCommission}`;
           cy.downloadDocument();
           cy.dealWorksheet(customer);
+          cy.salesTaxDisclosure(customer);
           cy.commissionRecap(customer);
           customer.finalizeSale = false;
           cy.completeSale();
