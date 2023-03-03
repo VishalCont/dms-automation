@@ -16,36 +16,38 @@ describe("Sales Flow", () => {
     cy.login("shelby_ltd", "Admin@123");
   });
   var cases = [
-    // "case1",
-    // "case2",
-    // "case3",
-    // "case4",
-    // "case5",
-    // "case6",
-    // "case7",
-    // "case8",
-    // "case9",
-    // "case10",
-    // "case11",
-    // "case12",
-    // "case13",
-    // "case14",
-    // "case15",
-    // "case16",
-    // "case17",
-    // "case18",
-    // "case19",
-    // "case20",
-    // "case21",
-    // "case22",
+    "case1",
+    "case2",
+    "case3",
+    "case4",
+    "case5",
+    "case6",
+    "case7",
+    "case8",
+    "case9",
+    "case10",
+    "case11",
+    "case12",
+    "case13",
+    "case14",
+    "case15",
+    "case16",
+    "case17",
+    "case18",
+    "case19",
+    "case20",
+    "case21",
+    "case22",
     "case23",
-    // "case24",
-    // "case25",
-    // "case26",
-    // "case27",
-    // "case28",
-    // "case29",
-    // "case30",
+    "case24",
+    "case25",
+    "case26",
+    "case27",
+    "case28",
+    "case29",
+    "case30",
+    "case31",
+    "case32",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -932,6 +934,52 @@ describe("Sales Flow", () => {
           cy.wait(5000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
           cy.wait(5000);
+        });
+        break;
+      case "case31":
+        it("Choosing sale finance calculation method", () => {
+          cy.wait(4000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          cy.saleFinanceCalculation(customer);
+          cy.wait(2000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.wait(4000);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case32":
+        it("Sale finance calculation method, with deffered sales tax Yes", () => {
+          cy.wait(4000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          // cy.defSalesTax(customer);
+          // cy.wait(4000);
+          cy.saleFinanceCalculation(customer);
+          cy.wait(2000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.wait(4000);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         break;
     }

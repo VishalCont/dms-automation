@@ -34,6 +34,7 @@ import { quickDealCalculator } from "./deal_builder/quick_dealcalculator.command
 import { refundFinalizePage } from "./deal_builder/refundFinalizePage.command";
 import { modifyDeal } from "./deal_builder/modifyDeal.command";
 import { salesTaxDisclosure } from "./deal_builder/sales_tax_disclosure.command";
+import { saleFinanceCalculation } from "./deal_builder/saleFinanceCalculation.command";
 
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
@@ -125,6 +126,7 @@ declare global {
       selectPaymentSchedule: (type: string) => void;
       modifyDeal: () => void;
       salesTaxDisclosure: () => void;
+      saleFinanceCalculation: () => void;
     }
   }
 }
@@ -159,3 +161,4 @@ Cypress.Commands.add("quickDealCalculator", quickDealCalculator);
 Cypress.Commands.add("refundFinalizePage", refundFinalizePage);
 Cypress.Commands.add("modifyDeal", modifyDeal);
 Cypress.Commands.add("salesTaxDisclosure", salesTaxDisclosure);
+Cypress.Commands.add("saleFinanceCalculation", saleFinanceCalculation);
