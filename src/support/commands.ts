@@ -78,6 +78,7 @@ require("./deal_builder/change_days_to_first_payment.command");
 require("./deal_builder/outside_finance_type.command");
 require("./deal_builder/validate_document _inreport.command ");
 require("./deal_builder/validate_salestax&govtfee_wholesale.command");
+require("./deal_builder/price_adjust.command");
 // add new command to the existing Cypress interface
 declare global {
   namespace Cypress {
