@@ -93,6 +93,12 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(3000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
+        it("Verify Sale Details page", () => {
+          cy.wait(3000);
+          cy.recentDeal(customer);
+          cy.wait(3000);
+          cy.saleDetails(customer);
+        });
         break;
       case "BHPH":
         it("Change Sale type to BHPH", () => {
@@ -135,6 +141,12 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.confirmationAtFinalizeSale();
           cy.wait(3000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        it("Verify Sale Details page", () => {
+          cy.wait(3000);
+          cy.recentDeal(customer);
+          cy.wait(3000);
+          cy.saleDetails(customer);
         });
 
         break;
@@ -185,6 +197,12 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.wait(3000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
+        it("Verify Sale Details page", () => {
+          cy.wait(3000);
+          cy.recentDeal(customer);
+          cy.wait(3000);
+          cy.saleDetails(customer);
+        });
         //
         break;
       case "Wholesale":
@@ -220,6 +238,12 @@ for (let index = 0; index < loanTypes.length; index++) {
           cy.confirmationAtFinalizeSale();
           cy.wait(3000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        it("Verify Sale Details page", () => {
+          cy.wait(3000);
+          cy.recentDeal(customer);
+          cy.wait(3000);
+          cy.saleDetails(customer);
         });
         //
         break;
