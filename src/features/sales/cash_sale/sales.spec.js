@@ -53,6 +53,7 @@ describe("Sales Flow", () => {
     "case35",
     "case36",
     "case37",
+    "case38",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -1145,6 +1146,37 @@ describe("Sales Flow", () => {
           cy.wait(5000);
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
           cy.wait(5000);
+        });
+        break;
+      case "case38":
+        it("BHPH sale & validating Govt fee ", () => {
+          cy.wait(1000);
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(3000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          customer.bhphOrOutsideFinance = true;
+          cy.wait(2000);
+          cy.otherCharges();
+          cy.wait(5000);
+
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.wait(6000);
+
+          cy.downloadDocument();
+          customer.finalizeSale = false;
+          cy.wait(3000);
+          cy.completeSale();
+          cy.wait(2000);
+          cy.verifyScreen(customer);
+          cy.wait(4000);
+          cy.confirmationAtFinalizeSale();
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
         });
         break;
     }
