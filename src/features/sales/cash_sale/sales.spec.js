@@ -54,6 +54,8 @@ describe("Sales Flow", () => {
     "case36",
     "case37",
     "case38",
+    "case39",
+    "case40",
   ];
   for (let index = 0; index < cases.length; index++) {
     const element = cases[index];
@@ -1177,6 +1179,64 @@ describe("Sales Flow", () => {
           cy.wait(4000);
           cy.confirmationAtFinalizeSale();
           cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+        });
+        break;
+      case "case39":
+        it("Adding DCC/GAP to Sale and validating payments: Cash sale", () => {
+          cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+          cy.wait(2000);
+          cy.paymentDetails(customer);
+          cy.wait(2000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          //cy.test();
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.dealWorksheet(customer);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
+        });
+        break;
+      case "case40":
+        it("Adding DCC/GAP to Sale and validating payments: BHPH sale", () => {
+          cy.changeSaleType(customer.typeOfSale);
+          cy.wait(4000);
+          cy.existingVendorForDCCAndGAP("GAP", "qwerty", "200", "230");
+          cy.wait(4000);
+          cy.paymentDetails(customer);
+          cy.wait(4000);
+          customer.full_name = `${customer.first_name} ${customer.last_name}`;
+          //cy.test();
+          cy.verifyScreen(customer);
+        });
+        it(customer.case, () => {
+          cy.makePayment(customer);
+          customer.salesPerson = `${
+            customer.salesPerson.charAt(0).toLocaleUpperCase() +
+            customer.salesPerson.substring(1)
+          } - ${customer.otherCommission}`;
+          cy.downloadDocument();
+          customer.tradeInContains = false;
+          cy.dealWorksheet(customer);
+          customer.finalizeSale = false;
+          cy.completeSale();
+          cy.verifyScreen(customer);
+          cy.confirmationAtFinalizeSale();
+          cy.wait(5000);
+          cy.get(".sales-home").contains("Deal Activity").should("be.visible");
+          cy.wait(5000);
         });
         break;
     }

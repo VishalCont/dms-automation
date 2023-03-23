@@ -35,6 +35,7 @@ import { refundFinalizePage } from "./deal_builder/refundFinalizePage.command";
 import { modifyDeal } from "./deal_builder/modifyDeal.command";
 import { salesTaxDisclosure } from "./deal_builder/sales_tax_disclosure.command";
 import { saleFinanceCalculation } from "./deal_builder/saleFinanceCalculation.command";
+import { paymentDetails } from "./deal_builder/payment_details.command";
 
 require("./deal_builder/dcc_gap_existingVendor.command");
 require("./deal_builder/new_customer.command");
@@ -129,6 +130,7 @@ declare global {
       modifyDeal: () => void;
       salesTaxDisclosure: () => void;
       saleFinanceCalculation: () => void;
+      paymentDetails: () => void;
     }
   }
 }
@@ -164,3 +166,4 @@ Cypress.Commands.add("refundFinalizePage", refundFinalizePage);
 Cypress.Commands.add("modifyDeal", modifyDeal);
 Cypress.Commands.add("salesTaxDisclosure", salesTaxDisclosure);
 Cypress.Commands.add("saleFinanceCalculation", saleFinanceCalculation);
+Cypress.Commands.add("paymentDetails", paymentDetails);
